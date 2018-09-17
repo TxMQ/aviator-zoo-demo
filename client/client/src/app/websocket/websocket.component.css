@@ -1,0 +1,31 @@
+.table-container {
+    height: 223px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.message-row, .message-header {
+    display: table-row;
+}
+
+.table-cell, .table-header {
+    display: table-cell;    
+    padding: 2px 8px;
+}
+.table-header {
+    color: #666;
+    border-bottom: 1px solid #666;
+}
+
+.table-cell:first-child {
+    padding-left: 0;
+}
+
+.table-cell:last-child {
+    padding-right: 0;
+}

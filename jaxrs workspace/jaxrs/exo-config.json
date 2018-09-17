@@ -1,0 +1,31 @@
+{
+	"clientConfig": {
+		"encrypted": "false",
+		"clientKeystore": {
+			"path": "client.private",
+			"password": "client"
+		},
+		"serverKeystore": {
+			"path": "server.public",
+			"password": "server"
+		},
+		"knownSockets": [
+			{
+				"hostname": "localhost",
+				"port": 51204
+			},
+			{
+				"hostname": "localhost",
+				"port": 51205
+			},
+			{
+				"hostname": "localhost",
+				"port": 51206
+			},
+			{
+				"hostname": "localhost",
+				"port": 51207
+			}		
+		]
+	}
+}

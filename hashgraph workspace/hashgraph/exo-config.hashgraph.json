@@ -1,0 +1,47 @@
+{
+	"hashgraphConfig": {
+		"transactionTypesClassName": "com.txmq.exozoodemo.ZooDemoTransactionTypes",
+		"transactionProcessors": [
+			"com.txmq.exozoodemo.rest",
+			"com.txmq.exozoodemo.websocket",
+			"com.txmq.exozoodemo.transactions",
+			"com.txmq.exo.messaging.rest",
+			"com.txmq.exo.persistence.transactions"
+		],
+		"socketMessaging": {
+			"port": -1,
+			"derivedPort": 1000,
+			"secured": false,
+			"clientKeystore": {
+				"path": "client.public",
+				"password": "client"
+			},
+			"serverKeystore": {
+				"path": "server.private",
+				"password": "server"
+			},
+			"handlers": [
+				"com.txmq.exozoodemo.socket"
+			]
+		},
+		"rest": {
+			"port": -1,
+			"derivedPort": 2000,
+			"handlers": [
+				"com.txmq.exozoodemo.rest"
+			]
+		},
+		"blockLogger": {
+			"loggerClass": "com.txmq.exo.persistence.couchdb.CouchDBBlockLogger",
+			"parameters": [
+				{ "key": "databaseName", "value": "zoo-"},
+				{ "key": "useAsPrefix", "value": "true"},
+				{ "key": "protocol", "value": "http"},
+				{ "key": "host", "value": "couchdb"},
+				{ "key": "port", "value": "5984"},
+				{ "key": "blockSize", "value": 5},
+				{ "key": "createDb", "value": "true"}
+			]
+		}
+	}
+}

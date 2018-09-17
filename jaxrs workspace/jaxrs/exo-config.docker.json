@@ -1,0 +1,23 @@
+{
+	"clientConfig": {
+		"encrypted": "false",
+		"knownSockets": [
+			{
+				"hostname": "10.100.20.62",
+				"port": 51204
+			},
+			{
+				"hostname": "10.100.20.62",
+				"port": 51205
+			},
+			{
+				"hostname": "10.100.20.62",
+				"port": 51206
+			},
+			{
+				"hostname": "10.100.20.62",
+				"port": 51207
+			}		
+		]
+	}
+}
