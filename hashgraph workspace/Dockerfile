@@ -1,7 +1,7 @@
 FROM maven:3.3-jdk-8 AS hg-build
 
 ADD ./hashgraph /opt/maven
-copy ./hashgraph/exo-config.hashgraph.json /opt/maven/exo-config.json
+copy ./hashgraph/aviator-config.hashgraph.json /opt/maven/aviator-config.json
 WORKDIR /opt/maven/source/ExoZooDemo
 RUN mvn install -e
 
