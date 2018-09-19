@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.websocket.grizzly;
+package com.txmq.aviator.messaging.websocket.grizzly;
 
 import java.io.IOException;
 
@@ -7,15 +7,15 @@ import org.glassfish.grizzly.websockets.WebSocket;
 import org.glassfish.grizzly.websockets.WebSocketApplication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.pipeline.subscribers.ExoSubscriberManager;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberManager;
 
-public class ExoWebSocketApplication extends WebSocketApplication {
+public class AviatorWebSocketApplication extends WebSocketApplication {
 	
-	private ExoSubscriberManager subscriberManager = new ExoSubscriberManager();
+	private AviatorSubscriberManager subscriberManager = new AviatorSubscriberManager();
 
-	public ExoWebSocketApplication() {
+	public AviatorWebSocketApplication() {
 		super();
 	}
 	
@@ -36,14 +36,14 @@ public class ExoWebSocketApplication extends WebSocketApplication {
     public void onMessage(WebSocket socket, String frame) {
 		
 		//Parse the incoming message
-        ExoMessageJsonParser parser = new ExoMessageJsonParser();
-        ExoMessage<?> message = null;
+        AviatorMessageJsonParser parser = new AviatorMessageJsonParser();
+        AviatorMessage<?> message = null;
         try {
-			message = parser.readValue(frame, ExoMessage.class);
+			message = parser.readValue(frame, AviatorMessage.class);
 		} catch (Exception e) {
 			//Uh-oh..  Try to report the failure back to the caller
 			e.printStackTrace();
-			ExoMessage<String> errorResponse = new ExoMessage<String>();
+			AviatorMessage<String> errorResponse = new AviatorMessage<String>();
 			errorResponse.payload = "Could not deserialize message: " + frame;
 			try {
 				socket.send(parser.writeValueAsString(errorResponse));
@@ -63,7 +63,7 @@ public class ExoWebSocketApplication extends WebSocketApplication {
          */
         try {
         	subscriberManager.registerAllAvailableResponders(message, socket);
-        	ExoPlatformLocator.createTransaction(message);
+        	PlatformLocator.createTransaction(message);
         } catch (IOException e) {
         	e.printStackTrace();
         }        

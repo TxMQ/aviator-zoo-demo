@@ -1,11 +1,11 @@
-package com.txmq.exo.messaging.socket;
+package com.txmq.aviator.messaging.socket;
 
-import com.txmq.exo.core.ExoState;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.transactionrouter.ExoRouter;
+import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.transactionrouter.AviatorRouter;
 
-public class ExoMessageRouter extends ExoRouter<ExoMessageHandler> {
-	public Object routeMessage(ExoMessage<?> message, ExoState state) throws ReflectiveOperationException {
+public class ExoMessageRouter extends AviatorRouter<ExoMessageHandler> {
+	public Object routeMessage(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
 		return this.invokeHandler(message.transactionType, message, state);
 	}
 }

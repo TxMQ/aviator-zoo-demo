@@ -1,31 +1,31 @@
-package com.txmq.exo.persistence.transactions;
+package com.txmq.aviator.persistence.transactions;
 
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.core.ExoState;
-import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.pipeline.PlatformEvents;
-import com.txmq.exo.pipeline.metadata.ExoHandler;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.messaging.AviatorCoreTransactionTypes;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.pipeline.PlatformEvents;
+import com.txmq.aviator.pipeline.metadata.AviatorHandler;
 
 public class PersistenceTransactions {
 
-	@ExoHandler(	namespace="AviatorCoreTransactionTypes",
+	@AviatorHandler(	namespace="AviatorCoreTransactionTypes",
 					transactionType=AviatorCoreTransactionTypes.SHUTDOWN, 
 					events= {PlatformEvents.executeConsensus})
-	public ExoMessage<?> shutdown(ExoMessage<?> message, ExoState state, boolean consensus) {
+	public AviatorMessage<?> shutdown(AviatorMessage<?> message, AviatorState state, boolean consensus) {
 		//If we have a block logger, then ask it to flush to the chain.
-		if (ExoPlatformLocator.getBlockLogger() != null) {
-			ExoPlatformLocator.shutdown();	
+		if (PlatformLocator.getBlockLogger() != null) {
+			PlatformLocator.shutdown();	
 			System.out.println("It is now safe to shut down.");
 		}
 		
 		return message;
 	}
 	
-	@ExoHandler(	namespace="AviatorCoreTransactionTypes",
+	@AviatorHandler(	namespace="AviatorCoreTransactionTypes",
 					transactionType=AviatorCoreTransactionTypes.RECOVER_STATE, 
 					events= {PlatformEvents.executeConsensus})
-	public ExoMessage<?> recoverState(ExoMessage<?> message, ExoState state, boolean consensus) {
+	public AviatorMessage<?> recoverState(AviatorMessage<?> message, AviatorState state, boolean consensus) {
 		return message;
 	}
 }

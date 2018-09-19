@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.socket;
+package com.txmq.aviator.messaging.socket;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import com.swirlds.platform.Platform;
  * It gets spawned on a separate thread, land when incoming connects are accepted, 
  * spawns a new thread to handle those transactions.
  * 
- * @see com.txmq.exo.messaging.socket.TransactionServerConnection
+ * @see com.txmq.aviator.messaging.socket.TransactionServerConnection
  */
 public class TransactionServer extends Thread {
 

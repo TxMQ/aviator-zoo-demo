@@ -1,17 +1,17 @@
-package com.txmq.exo.pipeline.subscribers;
+package com.txmq.aviator.pipeline.subscribers;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import com.txmq.exo.messaging.ExoNotification;
+import com.txmq.aviator.messaging.AviatorNotification;
 
-public class ExoSubscriberBase<T> {
+public class AviatorSubscriberBase<T> {
 	
-	protected ExoSubscriberManager subscriberManager = new ExoSubscriberManager();
+	protected AviatorSubscriberManager subscriberManager = new AviatorSubscriberManager();
 	
 	private Class<?> subscriberType = null;
 	
-	public ExoSubscriberBase() {
+	public AviatorSubscriberBase() {
 		Class<?> clazz = getClass();
 		ParameterizedType parameterizedType = null;
 		
@@ -32,7 +32,7 @@ public class ExoSubscriberBase<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected T getResponder(ExoNotification<?> notification) {
+	protected T getResponder(AviatorNotification<?> notification) {
 		Object responder = this.subscriberManager.getResponder(notification);
 		/*
 		 * Test if the responder we received is the type we expect.  If not, return null.

@@ -1,4 +1,4 @@
-package com.txmq.exo.transactionrouter;
+package com.txmq.aviator.transactionrouter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -11,7 +11,7 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 
-import com.txmq.exo.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorTransactionType;
 
 /**
  * ExoTransactionRouter implements an annotation-based transaction routing 
@@ -39,7 +39,7 @@ import com.txmq.exo.messaging.AviatorTransactionType;
  * TODO:  Add a means for transaction processors to return data which will
  * later be made available through an API to client applications.
  */
-public abstract class ExoRouter<T extends Annotation> {
+public abstract class AviatorRouter<T extends Annotation> {
 	
 	/**
 	 * Map of transaction type values to the methods that handle them.
@@ -66,10 +66,10 @@ public abstract class ExoRouter<T extends Annotation> {
 	 * 
 	 * Applications should not create instances of ExoTransactionRouter.
 	 * 
-	 * @see com.txmq.exo.core.ExoPlatformLocator
+	 * @see com.txmq.aviator.core.PlatformLocator
 	 */
 	@SuppressWarnings("unchecked")
-	public ExoRouter() {
+	public AviatorRouter() {
 		this.transactionMap = new HashMap<AviatorTransactionType, Method>();
 		this.transactionProcessors = new HashMap<Class<?>, Object>(); 		
 		this.annotationType = ((Class<? extends Annotation>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
@@ -80,7 +80,7 @@ public abstract class ExoRouter<T extends Annotation> {
 	 * @ExoTransaction annotations using reflection and sets up the
 	 * internal mapping of transaction type to processing method.
 	 */
-	public ExoRouter<T> addPackage(String transactionPackage) {
+	public AviatorRouter<T> addPackage(String transactionPackage) {
 		Reflections reflections = new Reflections(transactionPackage, new MethodAnnotationsScanner());			
 		
 		Set<Method> methods = reflections.getMethodsAnnotatedWith(this.annotationType);

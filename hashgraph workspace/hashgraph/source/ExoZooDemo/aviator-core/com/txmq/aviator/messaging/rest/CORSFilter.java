@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.rest;
+package com.txmq.aviator.messaging.rest;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging;
+package com.txmq.aviator.messaging;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -15,9 +15,9 @@ import org.reflections.Reflections;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.txmq.exo.messaging.annotations.TransactionType;
-import com.txmq.exo.messaging.annotations.TransactionTypes;
-import com.txmq.exo.util.hash.MurmurHash3;
+import com.txmq.aviator.messaging.annotations.TransactionType;
+import com.txmq.aviator.messaging.annotations.TransactionTypes;
+import com.txmq.aviator.util.hash.MurmurHash3;
 
 public class AviatorTransactionType implements Serializable {
 

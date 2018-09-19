@@ -1,11 +1,11 @@
-package com.txmq.exo.pipeline.metadata;
+package com.txmq.aviator.pipeline.metadata;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.txmq.exo.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.ReportingEvents;
 
 /**
  * Metadata element used to identify methods that handle Exo reporting events.  These 
@@ -23,7 +23,7 @@ import com.txmq.exo.pipeline.ReportingEvents;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ExoSubscriber {
+public @interface AviatorSubscriber {
 	String namespace();
 	String transactionType();
 	ReportingEvents[] events();

@@ -1,10 +1,10 @@
-package com.txmq.exo.persistence.nulllogger;
+package com.txmq.aviator.persistence.nulllogger;
 
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.persistence.Block;
-import com.txmq.exo.persistence.IBlockLogger;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.persistence.Block;
+import com.txmq.aviator.persistence.IBlockLogger;
 
 /**
  * A null implementation of a block logger.  Does nothing, but prevents 
@@ -15,7 +15,7 @@ import com.txmq.exo.persistence.IBlockLogger;
 public class NullBlockLogger implements IBlockLogger {
 
 	@Override
-	public void addTransaction(ExoMessage<?> transaction) {
+	public void addTransaction(AviatorMessage<?> transaction) {
 		return;
 	}
 

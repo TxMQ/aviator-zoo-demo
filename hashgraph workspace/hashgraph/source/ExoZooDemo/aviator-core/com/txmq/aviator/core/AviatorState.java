@@ -1,4 +1,4 @@
-package com.txmq.exo.core;
+package com.txmq.aviator.core;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -10,7 +10,7 @@ import com.swirlds.platform.Address;
 import com.swirlds.platform.AddressBook;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * ExoState is a base class for developers to extend when implementing Swirlds states.
@@ -21,9 +21,9 @@ import com.txmq.exo.messaging.ExoMessage;
  * Developers should be sure to call super-methods when extending/implementing init, 
  * copyFrom, and handleTransaction when subclassing ExoState.
  * 
- * @see com.txmq.exo.messaging.rest.EndpointsApi
+ * @see com.txmq.aviator.messaging.rest.EndpointsApi
  */
-public class ExoState {
+public class AviatorState {
 	
 	/** names and addresses of all members */
 	protected AddressBook addressBook;
@@ -61,11 +61,11 @@ public class ExoState {
 	 * and node naming information stored in the state.
 	 */
 	public synchronized void copyFrom(SwirldState old) {
-		endpoints = Collections.synchronizedList(new ArrayList<String>(((ExoState) old).endpoints));
+		endpoints = Collections.synchronizedList(new ArrayList<String>(((AviatorState) old).endpoints));
 		if (addressBook != null) {
-			addressBook = ((ExoState) old).addressBook.copy();
+			addressBook = ((AviatorState) old).addressBook.copy();
 		}
-		myName = ((ExoState) old).myName;
+		myName = ((AviatorState) old).myName;
 	}
 	
 	/**
@@ -85,14 +85,14 @@ public class ExoState {
 			Instant timeCreated, byte[] transaction, Address address) {
 		
 		try {
-			ExoMessage<?> message = ExoMessage.deserialize(transaction);
+			AviatorMessage<?> message = AviatorMessage.deserialize(transaction);
 			if (consensus == false) {
 				//Route the transaction through the pre-consensus part of the pipeline
-				ExoPlatformLocator.getPipelineRouter(this.myName).routeExecutePreConsensus(message, this);				
+				PlatformLocator.getPipelineRouter(this.myName).routeExecutePreConsensus(message, this);				
 			} else {
-				ExoPlatformLocator.getPipelineRouter(this.myName).routeExecuteConsensus(message, this);
+				PlatformLocator.getPipelineRouter(this.myName).routeExecuteConsensus(message, this);
 				if (message.isInterrupted() == false) {
-					ExoPlatformLocator.getBlockLogger().addTransaction(message, this.myName);
+					PlatformLocator.getBlockLogger().addTransaction(message, this.myName);
 				}
 			}
 		} catch (ClassNotFoundException e) {

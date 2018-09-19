@@ -1,4 +1,4 @@
-package com.txmq.exo.util.hash;
+package com.txmq.aviator.util.hash;
 
 /**
  *  The MurmurHash3 algorithm was created by Austin Appleby and placed in the public domain.

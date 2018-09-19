@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.websocket.grizzly;
+package com.txmq.aviator.messaging.websocket.grizzly;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,10 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
 
-public class ExoMessageJsonParser extends ObjectMapper {
+public class AviatorMessageJsonParser extends ObjectMapper {
 	/**
 	 * A map of transaction type to payload class.  This map is used to deserialize 
 	 * transactions  that have come in through a mechanism where we wouldn't have 
@@ -39,20 +39,20 @@ public class ExoMessageJsonParser extends ObjectMapper {
 		payloadMap.put(transactionType, payloadClass);
 	}
 	
-	public ExoMessageJsonParser() {
+	public AviatorMessageJsonParser() {
 		super();
 		
 		//Configure this ObjectMapper derivative to use our custom deserializer
 		SimpleModule module = new SimpleModule("ExoMessageJacksonDeserializer", new Version(1, 0, 0, null, "com.txmq", "exo"));	
-		module.addDeserializer(ExoMessage.class, new ExoMessageJacksonDeserializer());
+		module.addDeserializer(AviatorMessage.class, new ExoMessageJacksonDeserializer());
 		this.registerModule(module); 
 	}
 	
-	private class ExoMessageJacksonDeserializer extends StdDeserializer<ExoMessage<?>> {
+	private class ExoMessageJacksonDeserializer extends StdDeserializer<AviatorMessage<?>> {
 
 	    
 		protected ExoMessageJacksonDeserializer() {
-			super(ExoMessage.class);
+			super(AviatorMessage.class);
 		}
 
 		/**
@@ -61,7 +61,7 @@ public class ExoMessageJsonParser extends ObjectMapper {
 		private static final long serialVersionUID = 2603203710237843037L;
 
 		@Override
-		public ExoMessage<?> deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
+		public AviatorMessage<?> deserialize(JsonParser parser, DeserializationContext context) throws IOException, JsonProcessingException {
 			
 			ObjectMapper mapper = (ObjectMapper) parser.getCodec();  
 			ObjectMapper innerMapper = new ObjectMapper();
@@ -104,7 +104,7 @@ public class ExoMessageJsonParser extends ObjectMapper {
 		    
 		    //TODO:  THis implementation is incomplete..  The innerMapper needs to account for string/integer values in the namespace
 		    @SuppressWarnings("unchecked")
-			ExoMessage<Serializable> result = innerMapper.treeToValue(obj, ExoMessage.class);
+			AviatorMessage<Serializable> result = innerMapper.treeToValue(obj, AviatorMessage.class);
 		    if (clazz != null) {
 		    	result.payload = (Serializable) innerMapper.treeToValue(payloadJsonNode, clazz);
 		    }

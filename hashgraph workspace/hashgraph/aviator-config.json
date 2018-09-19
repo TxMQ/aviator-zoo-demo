@@ -3,19 +3,19 @@
 		"com.txmq.exozoodemo.rest",
 		"com.txmq.exozoodemo.websocket",
 		"com.txmq.exozoodemo.transactions",
-		"com.txmq.exo.messaging.rest",
-		"com.txmq.exo.persistence.transactions"
+		"com.txmq.aviator.messaging.rest",
+		"com.txmq.aviator.persistence.transactions"
 	],
 	"rest": {
         "port": -1,
         "derivedPort": 2000,
         "handlers": [
-            "com.txmq.exozoodemo.rest"
+			"com.txmq.exozoodemo.rest"
         ]
     },
     "blockLoggers": [
     	{
-			"loggerClass": "com.txmq.exo.persistence.couchdb.CouchDBBlockLogger",
+			"loggerClass": "com.txmq.aviator.persistence.couchdb.CouchDBBlockLogger",
 			"parameters": [
 				{ "key": "databaseName", "value": "zoo-"},
 				{ "key": "useAsPrefix", "value": "true"},

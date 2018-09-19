@@ -1,4 +1,4 @@
-package com.txmq.exo.pipeline.subscribers;
+package com.txmq.aviator.pipeline.subscribers;
 
 /**
  * Empty interface used to tag responders for ExoSubscriberManager.  
@@ -6,6 +6,6 @@ package com.txmq.exo.pipeline.subscribers;
  * @author craigdrabik
  *
  */
-public interface ExoSubscriptionResponder {
+public interface AviatorSubscriptionResponder {
 
 }

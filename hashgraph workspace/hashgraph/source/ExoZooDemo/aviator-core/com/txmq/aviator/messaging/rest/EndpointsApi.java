@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.rest;
+package com.txmq.aviator.messaging.rest;
 
 import java.io.Serializable;
 
@@ -10,12 +10,12 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.pipeline.ReportingEvents;
-import com.txmq.exo.pipeline.subscribers.ExoSubscriberManager;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.messaging.AviatorCoreTransactionTypes;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberManager;
 
 /**
  * This class implements a REST endpoint for retrieving a list of endpoints that the Swirld
@@ -24,19 +24,19 @@ import com.txmq.exo.pipeline.subscribers.ExoSubscriberManager;
  */
 @Path("/exo/0.2.0") //TODO:  Remove HashgraphZoo prefix, give the internal APIs their own
 public class EndpointsApi {
-	private ExoSubscriberManager subscriberManager = new ExoSubscriberManager();
+	private AviatorSubscriberManager subscriberManager = new AviatorSubscriberManager();
 	
 	@GET
 	@Path("/endpoints")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void getEndpoints(@Suspended AsyncResponse response) {
-		ExoMessage<Serializable> transaction = 
-				new ExoMessage<Serializable>(
+		AviatorMessage<Serializable> transaction = 
+				new AviatorMessage<Serializable>(
 						new AviatorTransactionType(AviatorCoreTransactionTypes.NAMESPACE, AviatorCoreTransactionTypes.LIST_ENDPOINTS)
 		);
 		this.subscriberManager.registerResponder(transaction, ReportingEvents.transactionComplete, response);
 		try {
-			ExoPlatformLocator.createTransaction(transaction);
+			PlatformLocator.createTransaction(transaction);
 		} catch (Exception e) {
 			response.resume(Response.serverError().entity(e).build());
 		}
@@ -46,12 +46,12 @@ public class EndpointsApi {
 	@Path("/shutdown")
 	public Response shutdown() {
 		
-		ExoMessage<Serializable> transaction = 
-				new ExoMessage<Serializable>(
+		AviatorMessage<Serializable> transaction = 
+				new AviatorMessage<Serializable>(
 						new AviatorTransactionType(AviatorCoreTransactionTypes.NAMESPACE, AviatorCoreTransactionTypes.SHUTDOWN)
 		);
 		try {
-			ExoPlatformLocator.createTransaction(transaction);
+			PlatformLocator.createTransaction(transaction);
 		} catch (Exception e) {
 			return Response.serverError().entity(e).build();
 		}

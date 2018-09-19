@@ -1,8 +1,8 @@
-package com.txmq.exo.persistence;
+package com.txmq.aviator.persistence;
 
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * Interface that defines what a storage-specific block logger 
@@ -14,7 +14,7 @@ public interface IBlockLogger {
     /**
      * Adds a transaction to the next block
      */
-    public void addTransaction(ExoMessage<?> transaction);
+    public void addTransaction(AviatorMessage<?> transaction);
     
     /**
      * Asks the logger to persist a block to storage

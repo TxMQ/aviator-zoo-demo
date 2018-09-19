@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging;
+package com.txmq.aviator.messaging;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.UUID;
 
-import com.txmq.exo.core.ExoPlatformLocator;
+import com.txmq.aviator.core.PlatformLocator;
 
 /**
  * ExoMessage is the base wrapper for transactions that come in through Exo. 
@@ -26,7 +26,7 @@ import com.txmq.exo.core.ExoPlatformLocator;
  * @param <U> the type of the output carrier class.  Must implement Serializable.
  * 
  */
-public class ExoMessage<T extends Serializable> implements Serializable {
+public class AviatorMessage<T extends Serializable> implements Serializable {
 
 	/**
 	 * 
@@ -74,10 +74,10 @@ public class ExoMessage<T extends Serializable> implements Serializable {
 	 * Inserts the transaction into the pipeline, beginning processing
 	 */
 	public void submit() throws IOException {
-		ExoPlatformLocator.createTransaction(this);
+		PlatformLocator.createTransaction(this);
 	}
 	
-	public ExoMessage() {
+	public AviatorMessage() {
 		super();
 		this.uuid = UUID.randomUUID();
 	}
@@ -86,7 +86,7 @@ public class ExoMessage<T extends Serializable> implements Serializable {
 	 * Initialize this message with the supplied transaction type.
 	 * @param transactionType
 	 */
-	public ExoMessage(AviatorTransactionType transactionType) {
+	public AviatorMessage(AviatorTransactionType transactionType) {
 		super();
 		this.transactionType = transactionType;	
 		this.uuid = UUID.randomUUID();
@@ -96,7 +96,7 @@ public class ExoMessage<T extends Serializable> implements Serializable {
 	 * Initialize this message with the supplied transaction type and payload.
 	 * @param transactionType
 	 */
-	public ExoMessage(AviatorTransactionType transactionType, T payload) {
+	public AviatorMessage(AviatorTransactionType transactionType, T payload) {
 		super();
 		this.transactionType = transactionType;				
 		this.payload = payload;
@@ -115,7 +115,7 @@ public class ExoMessage<T extends Serializable> implements Serializable {
 	 * Initialize this message with the supplied transaction type and payload.
 	 * @param transactionType
 	 */
-	public ExoMessage(String namespace, String transactionType, T payload) {
+	public AviatorMessage(String namespace, String transactionType, T payload) {
 		this(new AviatorTransactionType(namespace, transactionType), payload);
 	}	
 	
@@ -144,9 +144,9 @@ public class ExoMessage<T extends Serializable> implements Serializable {
 	 *             if anything goes wrong
 	 * @throws ClassNotFoundException 
 	 */
-	public static ExoMessage<?> deserialize(byte[] b) throws IOException, ClassNotFoundException {
+	public static AviatorMessage<?> deserialize(byte[] b) throws IOException, ClassNotFoundException {
 		ObjectInputStream o = new ObjectInputStream(new ByteArrayInputStream(b));
-		ExoMessage<?> result = (ExoMessage<?>) o.readObject();
+		AviatorMessage<?> result = (AviatorMessage<?>) o.readObject();
 		o.close();
 		
 		return result;

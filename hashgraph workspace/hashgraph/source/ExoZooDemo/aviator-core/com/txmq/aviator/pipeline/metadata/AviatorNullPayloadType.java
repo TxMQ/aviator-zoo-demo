@@ -1,4 +1,4 @@
-package com.txmq.exo.pipeline.metadata;
+package com.txmq.aviator.pipeline.metadata;
 
 /**
  * This is an empty class used to work around limitations of Java annotations in the ExoHandler annotation.
@@ -8,6 +8,6 @@ package com.txmq.exo.pipeline.metadata;
  * @author craigdrabik
  *
  */
-public class ExoNullPayloadType {
+public class AviatorNullPayloadType {
 
 }

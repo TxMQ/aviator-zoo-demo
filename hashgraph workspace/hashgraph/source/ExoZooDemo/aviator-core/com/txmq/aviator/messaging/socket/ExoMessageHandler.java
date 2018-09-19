@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.socket;
+package com.txmq.aviator.messaging.socket;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

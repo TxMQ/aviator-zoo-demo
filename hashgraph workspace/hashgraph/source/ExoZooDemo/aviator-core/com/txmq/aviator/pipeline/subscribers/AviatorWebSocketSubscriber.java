@@ -1,15 +1,15 @@
-package com.txmq.exo.pipeline.subscribers;
+package com.txmq.aviator.pipeline.subscribers;
 
 import org.glassfish.grizzly.websockets.WebSocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txmq.exo.messaging.ExoNotification;
-import com.txmq.exo.pipeline.PipelineStatus;
+import com.txmq.aviator.messaging.AviatorNotification;
+import com.txmq.aviator.pipeline.PipelineStatus;
 
-public class ExoWebSocketSubscriber extends ExoSubscriberBase<WebSocket> {
+public class AviatorWebSocketSubscriber extends AviatorSubscriberBase<WebSocket> {
 
-	protected void sendNotification(ExoNotification<?> notification) {
+	protected void sendNotification(AviatorNotification<?> notification) {
 		WebSocket ws = this.getResponder(notification);
 		if (ws == null) {
 			return;
@@ -20,7 +20,7 @@ public class ExoWebSocketSubscriber extends ExoSubscriberBase<WebSocket> {
 		try {
 			message = mapper.writeValueAsString(notification);
 		} catch (JsonProcessingException e) {
-			ExoNotification<String> err = new ExoNotification<String>();
+			AviatorNotification<String> err = new AviatorNotification<String>();
 			err.event = notification.event;
 			err.status = PipelineStatus.ERROR;
 			err.transactionType = notification.transactionType;

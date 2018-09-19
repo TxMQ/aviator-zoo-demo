@@ -1,4 +1,4 @@
-package com.txmq.exo.persistence.couchdb;
+package com.txmq.aviator.persistence.couchdb;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.lightcouch.CouchDbClient;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.persistence.Block;
-import com.txmq.exo.persistence.IBlockLogger;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.persistence.Block;
+import com.txmq.aviator.persistence.IBlockLogger;
 
 /**
  * Implementation of IBlockLogger for CouchDB.  The logger works by writing 
@@ -146,7 +146,7 @@ public class CouchDBBlockLogger implements IBlockLogger {
 	 * only once.
 	 */
 	@Override
-	public synchronized void addTransaction(ExoMessage<?> transaction) {
+	public synchronized void addTransaction(AviatorMessage<?> transaction) {
 		this.block.addTransaction(transaction);
 		if (this.block.getBlockSize() == this.BLOCK_SIZE) {
 			this.save(block);
@@ -198,7 +198,7 @@ public class CouchDBBlockLogger implements IBlockLogger {
 		//Determine database name
 		String databaseName = parameterMap.get("databaseName");
 		if (parameterMap.containsKey("useAsPrefix") && parameterMap.get("useAsPrefix").equals("true")) {
-			databaseName = databaseName + ExoPlatformLocator.getPlatform().getAddress().getSelfName().toLowerCase();
+			databaseName = databaseName + PlatformLocator.getPlatform().getAddress().getSelfName().toLowerCase();
 		}
 		
 		//Determine protocol

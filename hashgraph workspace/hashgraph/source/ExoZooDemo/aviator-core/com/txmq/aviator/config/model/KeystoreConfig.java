@@ -1,4 +1,4 @@
-package com.txmq.exo.config.model;
+package com.txmq.aviator.config.model;
 
 public class KeystoreConfig {
 	public String path;

@@ -1,21 +1,21 @@
-package com.txmq.exo.messaging;
+package com.txmq.aviator.messaging;
 
 import java.io.Serializable;
 
-import com.txmq.exo.pipeline.PipelineStatus;
-import com.txmq.exo.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.PipelineStatus;
+import com.txmq.aviator.pipeline.ReportingEvents;
 
-public class ExoNotification<T extends Serializable> extends ExoMessage<T> {
-	public ExoMessage<?> triggeringMessage;
+public class AviatorNotification<T extends Serializable> extends AviatorMessage<T> {
+	public AviatorMessage<?> triggeringMessage;
 	public ReportingEvents event;
 	public PipelineStatus status;
 	public String nodeName;
 	
-	public ExoNotification() {
+	public AviatorNotification() {
 		
 	}
 	
-	public ExoNotification(ReportingEvents event, T payload, PipelineStatus status, ExoMessage<?> triggeringMessage, String nodeName) {
+	public AviatorNotification(ReportingEvents event, T payload, PipelineStatus status, AviatorMessage<?> triggeringMessage, String nodeName) {
 		this.event = event;
 		this.payload = payload;
 		this.status = status;

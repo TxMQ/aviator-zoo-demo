@@ -1,6 +1,6 @@
-package com.txmq.exo.persistence;
+package com.txmq.aviator.persistence;
 
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * A Block defines the "wrapper" for a set of transactions written out 
@@ -91,7 +91,7 @@ public class Block {
 	 * 
 	 * TODO:  Maybe should be protected, not public?
 	 */
-	public void addTransaction(ExoMessage<?> transaction) {
+	public void addTransaction(AviatorMessage<?> transaction) {
 		if (this.committed == true) {
 			throw new IllegalStateException("This block has already been committed.  No more transactions can be added to a committed block");
 		}

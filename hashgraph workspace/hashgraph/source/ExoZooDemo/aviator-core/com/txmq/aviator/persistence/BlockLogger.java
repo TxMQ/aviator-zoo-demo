@@ -1,11 +1,11 @@
-package com.txmq.exo.persistence;
+package com.txmq.aviator.persistence;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * BlockLogger is the manager class for Exo's "low rent" blockchain transaction
@@ -50,7 +50,7 @@ public class BlockLogger {
 	 * has not been created for the node, then a null logger will be
 	 * automatically registered so execution can procees.
 	 */
-	public void addTransaction(ExoMessage<?> transaction, String nodeName) {
+	public void addTransaction(AviatorMessage<?> transaction, String nodeName) {
 		for (IBlockLogger logger : this.getLoggers(nodeName)) {
 			logger.addTransaction(transaction);
 		}

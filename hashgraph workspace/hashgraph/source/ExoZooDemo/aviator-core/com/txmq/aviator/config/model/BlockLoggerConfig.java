@@ -1,8 +1,8 @@
-package com.txmq.exo.config.model;
+package com.txmq.aviator.config.model;
 
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
-import com.txmq.exo.config.AviatorConfiguration;
+import com.txmq.aviator.config.AviatorConfiguration;
 
 @AviatorConfiguration(properties= {"blockLoggers", "blockLogger"})
 public class BlockLoggerConfig {

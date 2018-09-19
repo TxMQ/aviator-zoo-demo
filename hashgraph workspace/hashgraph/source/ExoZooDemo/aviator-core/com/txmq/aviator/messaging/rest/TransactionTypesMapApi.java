@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.rest;
+package com.txmq.aviator.messaging.rest;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -11,21 +11,21 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.pipeline.ReportingEvents;
-import com.txmq.exo.pipeline.subscribers.ExoSubscriberManager;
+import com.txmq.aviator.messaging.AviatorCoreTransactionTypes;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberManager;
 
 @Path("/exo/0.2.0") //TODO:  Remove HashgraphZoo prefix, give the internal APIs their own
 public class TransactionTypesMapApi {
-	private ExoSubscriberManager subscriberManager = new ExoSubscriberManager();
+	private AviatorSubscriberManager subscriberManager = new AviatorSubscriberManager();
 	
 	@GET
 	@Path("/transactiontypes")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void getTransactionTypesMap(@Suspended AsyncResponse response) {
-		ExoMessage<Serializable> message = new ExoMessage<Serializable>(
+		AviatorMessage<Serializable> message = new AviatorMessage<Serializable>(
 				new AviatorTransactionType(AviatorCoreTransactionTypes.NAMESPACE, AviatorCoreTransactionTypes.GET_TRANSACTION_TYPES),
 				null
 		);

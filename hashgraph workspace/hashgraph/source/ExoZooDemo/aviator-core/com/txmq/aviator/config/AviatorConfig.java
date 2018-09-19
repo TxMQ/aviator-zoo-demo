@@ -1,4 +1,4 @@
-package com.txmq.exo.config;
+package com.txmq.aviator.config;
 
 import java.io.File;
 import java.util.ArrayList;

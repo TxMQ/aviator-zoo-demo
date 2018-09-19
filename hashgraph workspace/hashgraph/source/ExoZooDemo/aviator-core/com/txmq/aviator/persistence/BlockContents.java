@@ -1,4 +1,4 @@
-package com.txmq.exo.persistence;
+package com.txmq.aviator.persistence;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * Container for a block's transaction list and the hash of the previous block.
@@ -28,7 +28,7 @@ class BlockContents implements Serializable {
 	 * including the previous block's hash, and including that value in its own hash.
 	 */
 	public String previousBlockHash;
-	public List<ExoMessage<?>> transactions = new ArrayList<ExoMessage<?>>();
+	public List<AviatorMessage<?>> transactions = new ArrayList<AviatorMessage<?>>();
 	
 	/**
 	 * Calculates an SHA-256 hash of this object by first 

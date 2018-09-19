@@ -1,5 +1,5 @@
-package com.txmq.exo.pipeline.exception;
+package com.txmq.aviator.pipeline.exception;
 
-public class ExoPipelineException extends Exception {
-	public ExoPipelineException pipelineExceptionType;
+public class AviatorPipelineException extends Exception {
+	public AviatorPipelineException pipelineExceptionType;
 }

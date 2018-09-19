@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.socket;
+package com.txmq.aviator.messaging.socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.net.Socket;
 
 import com.swirlds.platform.Platform;
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.core.ExoState;
-import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
-import com.txmq.exo.messaging.ExoMessage;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.messaging.AviatorCoreTransactionTypes;
+import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
  * TransactionServerConnection represents the server-side of an established connection.
@@ -37,16 +37,16 @@ public class TransactionServerConnection extends Thread {
 			//Set up streams for reading from and writing to the socket.
 			ObjectOutputStream writer = new ObjectOutputStream(this.socket.getOutputStream());
 			ObjectInputStream reader = new ObjectInputStream(socket.getInputStream());
-			ExoMessage<?> message;
-			ExoMessage<Serializable> response = new ExoMessage<Serializable>();
+			AviatorMessage<?> message;
+			AviatorMessage<Serializable> response = new AviatorMessage<Serializable>();
 			try {
 				//Read the message object and try to cast it to ExoMessage
 				Object tmp = reader.readObject();
-				message = (ExoMessage<?>) tmp; 
-				ExoState state = (ExoState) this.platform.getState();
+				message = (AviatorMessage<?>) tmp; 
+				AviatorState state = (AviatorState) this.platform.getState();
 				
 				try {
-					response = (ExoMessage<Serializable>) this.messageRouter.routeMessage(message, state);
+					response = (AviatorMessage<Serializable>) this.messageRouter.routeMessage(message, state);
 				} catch (IllegalArgumentException e) {
 					/*
 					 * This exception is thrown by transactionRouter when it can't figure 
@@ -59,7 +59,7 @@ public class TransactionServerConnection extends Thread {
 						//We shouldn't receive this from the client.  If we do, just send it back
 						response.transactionType.setValue(AviatorCoreTransactionTypes.ACKNOWLEDGE);
 					} else {	
-						ExoPlatformLocator.createTransaction(message);
+						PlatformLocator.createTransaction(message);
 						response.transactionType.setValue(AviatorCoreTransactionTypes.ACKNOWLEDGE);
 					}
 				} catch (ReflectiveOperationException e) {

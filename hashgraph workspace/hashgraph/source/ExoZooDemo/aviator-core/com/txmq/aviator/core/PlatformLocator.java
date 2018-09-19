@@ -1,4 +1,4 @@
-package com.txmq.exo.core;
+package com.txmq.aviator.core;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -27,18 +27,18 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
-import com.txmq.exo.config.AviatorConfig;
-import com.txmq.exo.config.model.BlockLoggerConfig;
-import com.txmq.exo.config.model.MessagingConfig;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.messaging.rest.CORSFilter;
-import com.txmq.exo.messaging.socket.TransactionServer;
-import com.txmq.exo.messaging.websocket.grizzly.ExoWebSocketApplication;
-import com.txmq.exo.persistence.BlockLogger;
-import com.txmq.exo.persistence.IBlockLogger;
-import com.txmq.exo.pipeline.routers.ExoPipelineRouter;
+import com.txmq.aviator.config.AviatorConfig;
+import com.txmq.aviator.config.model.BlockLoggerConfig;
+import com.txmq.aviator.config.model.MessagingConfig;
+import com.txmq.aviator.messaging.AviatorCoreTransactionTypes;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.messaging.rest.CORSFilter;
+import com.txmq.aviator.messaging.socket.TransactionServer;
+import com.txmq.aviator.messaging.websocket.grizzly.AviatorWebSocketApplication;
+import com.txmq.aviator.persistence.BlockLogger;
+import com.txmq.aviator.persistence.IBlockLogger;
+import com.txmq.aviator.pipeline.routers.AviatorPipelineRouter;
 
 /**
  * A static locator class for Exo platform constructs.  This class allows applications
@@ -48,7 +48,7 @@ import com.txmq.exo.pipeline.routers.ExoPipelineRouter;
  * I'm not in love with using static methods essentially as global variables.  I'd 
  * love to hear ideas on a better way to approach this.
  */
-public class ExoPlatformLocator {
+public class PlatformLocator {
 	/**
 	 * Reference to the Swirlds platform
 	 */
@@ -57,7 +57,7 @@ public class ExoPlatformLocator {
 	/**
 	 * Pipeline routers 
 	 */
-	private static Map<String, ExoPipelineRouter> pipelineRouters = new HashMap<String, ExoPipelineRouter>();
+	private static Map<String, AviatorPipelineRouter> pipelineRouters = new HashMap<String, AviatorPipelineRouter>();
 	//private static ExoPipelineRouter pipelineRouter = new ExoPipelineRouter();
 	
 	/**
@@ -77,15 +77,15 @@ public class ExoPlatformLocator {
 	 * 
 	 * Block logging will be disabled when running in test mode.
 	 */
-	private static ExoState testState = null;
+	private static AviatorState testState = null;
 	
 	/**
 	 * Places Exo in test mode, using the passed-in instance of a state.  This is useful
 	 * for automated testing where you may want to configure an application state manually
 	 * and run a series of tests against that known state.
 	 */
-	public static void enableTestMode(ExoState state) {
-		ExoPlatformLocator.testState = state;
+	public static void enableTestMode(AviatorState state) {
+		PlatformLocator.testState = state;
 	}
 	
 	/**
@@ -94,15 +94,15 @@ public class ExoPlatformLocator {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public static void enableTestMode(Class<? extends ExoState> stateClass) throws InstantiationException, IllegalAccessException {
-		ExoPlatformLocator.testState = stateClass.newInstance();
+	public static void enableTestMode(Class<? extends AviatorState> stateClass) throws InstantiationException, IllegalAccessException {
+		PlatformLocator.testState = stateClass.newInstance();
 	}
 	
 	/**
 	 * Tests if the application is running in test mode
 	 */
 	public static boolean isTestMode() {
-		return (ExoPlatformLocator.testState != null);
+		return (PlatformLocator.testState != null);
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ExoPlatformLocator {
 	 */
 	@SuppressWarnings("unchecked")
 	public static synchronized void initFromConfig(Platform platform) throws ReflectiveOperationException {
-		ExoPlatformLocator.platform = platform;
+		PlatformLocator.platform = platform;
 		init(platform, (List<String>) AviatorConfig.get("transactionProcessors"));
 		
 		//Set up socket messaging, if it's in the config..
@@ -181,7 +181,7 @@ public class ExoPlatformLocator {
 		
 		//TODO:  Backport multiple logger feature
 		//configure block logging, if indicated in the config file
-		if (AviatorConfig.has("blockLoggers") && ExoPlatformLocator.testState == null) {
+		if (AviatorConfig.has("blockLoggers") && PlatformLocator.testState == null) {
 			for (BlockLoggerConfig loggerConfig : (List<BlockLoggerConfig>) AviatorConfig.get("blockLoggers")) {
 				try {
 					Class<? extends IBlockLogger> loggerClass = 
@@ -241,26 +241,26 @@ public class ExoPlatformLocator {
 	 * account for multiple nodes running in the same JVM.
 	 */
 	private static synchronized void initPipelineRouter(List<String> packages) {
-		ExoPipelineRouter pipelineRouter = new ExoPipelineRouter();
+		AviatorPipelineRouter pipelineRouter = new AviatorPipelineRouter();
 		pipelineRouter.init(packages);
-		String nodeName = ((ExoState) platform.getState()).getMyName();
+		String nodeName = ((AviatorState) platform.getState()).getMyName();
 		pipelineRouters.put(nodeName, pipelineRouter);
 	}
 	
 	/**
 	 * Accessor for the Exo pipeline router.  
-	 * @see com.txmq.exo.pipeline.routers.ExoPipelineRouter
+	 * @see com.txmq.aviator.pipeline.routers.AviatorPipelineRouter
 	 */	
-	public static synchronized ExoPipelineRouter getPipelineRouter() {
-		String nodeName = ((ExoState) platform.getState()).getMyName();
+	public static synchronized AviatorPipelineRouter getPipelineRouter() {
+		String nodeName = ((AviatorState) platform.getState()).getMyName();
 		return pipelineRouters.get(nodeName);
 	}
 	
 	/**
 	 * Accessor for the Exo pipeline router.  
-	 * @see com.txmq.exo.pipeline.routers.ExoPipelineRouter
+	 * @see com.txmq.aviator.pipeline.routers.AviatorPipelineRouter
 	 */	
-	public static synchronized ExoPipelineRouter getPipelineRouter(String nodeName) {
+	public static synchronized AviatorPipelineRouter getPipelineRouter(String nodeName) {
 		return pipelineRouters.get(nodeName);
 	}
 	
@@ -282,7 +282,7 @@ public class ExoPlatformLocator {
 	 * @throws ReflectiveOperationException 
 	 */
 	public static synchronized void init(Platform platform) throws ReflectiveOperationException {
-		ExoPlatformLocator.platform = platform;
+		PlatformLocator.platform = platform;
 		AviatorTransactionType.initialize();			
 	}
 	
@@ -327,7 +327,7 @@ public class ExoPlatformLocator {
 	public static void initREST(MessagingConfig restConfig) {
 		URI baseUri = UriBuilder.fromUri("http://0.0.0.0").port(restConfig.port).build();
 		ResourceConfig config = new ResourceConfig()
-				.packages("com.txmq.exo.messaging.rest")
+				.packages("com.txmq.aviator.messaging.rest")
 				.register(new CORSFilter())
 				.register(JacksonFeature.class)
 				.register(MultiPartFeature.class);
@@ -355,11 +355,6 @@ public class ExoPlatformLocator {
 			grizzly = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
 		}
 		
-		//TEST:  Add atmosphere test component
-		baseUri = UriBuilder.fromUri("http://0.0.0.0").port(8080).build();
-		config = new ResourceConfig()
-				.packages("com.txmq.exo.messaging.atmosphere");
-		
 		System.out.println("Starting Grizzly");
 		try {
 			grizzly.start();
@@ -373,7 +368,7 @@ public class ExoPlatformLocator {
 		for (NetworkListener listener : wsServer.getListeners()) {
 			listener.registerAddOn(addon);
 		}
-		WebSocketEngine.getEngine().register("", "/wstest", new ExoWebSocketApplication());
+		WebSocketEngine.getEngine().register("", "/wstest", new AviatorWebSocketApplication());
 		
 		try {
 			wsServer.start();
@@ -406,7 +401,7 @@ public class ExoPlatformLocator {
 				
 			}
 			//Port ExoCoreTransactionTypes to public static Strings
-			createTransaction(new ExoMessage<Serializable>(AviatorCoreTransactionTypes.NAMESPACE, AviatorCoreTransactionTypes.ANNOUNCE_NODE, externalUrl));
+			createTransaction(new AviatorMessage<Serializable>(AviatorCoreTransactionTypes.NAMESPACE, AviatorCoreTransactionTypes.ANNOUNCE_NODE, externalUrl));
 					
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -464,16 +459,16 @@ public class ExoPlatformLocator {
 	 * 
 	 * This signature matches the createTransaction signature of the Swirlds Platform.
 	 */
-	public static void createTransaction(ExoMessage<? extends Serializable> transaction) throws IOException {
+	public static void createTransaction(AviatorMessage<? extends Serializable> transaction) throws IOException {
 		//Check if we're running in test mode.
 		long transactionID = new Random().nextLong();
 		Instant timeCreated = Instant.now();
-		ExoState preConsensusState = null;
+		AviatorState preConsensusState = null;
 		
 		if (testState != null) {
 			//Test mode..  Get a pre-consensus copy of the state
 			try {
-				preConsensusState = (ExoState) testState.getClass().getConstructors()[0].newInstance();
+				preConsensusState = (AviatorState) testState.getClass().getConstructors()[0].newInstance();
 			} catch (Exception e) {
 				// TODO Better error handling..
 				e.printStackTrace();
@@ -525,8 +520,8 @@ public class ExoPlatformLocator {
 	 * because this method supports returning a state in test mode without initializing
 	 * the platform.
 	 */
-	public static ExoState getState() throws IllegalStateException {
-		if (ExoPlatformLocator.testState == null) {
+	public static AviatorState getState() throws IllegalStateException {
+		if (PlatformLocator.testState == null) {
 			if (platform == null) {
 				throw new IllegalStateException(
 					"PlatformLocator has not been initialized.  " + 
@@ -534,7 +529,7 @@ public class ExoPlatformLocator {
 				);
 			}
 			
-			return (ExoState) platform.getState();
+			return (AviatorState) platform.getState();
 		} else {
 			return testState;
 		}

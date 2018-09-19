@@ -1,6 +1,6 @@
-package com.txmq.exo.pipeline.exception;
+package com.txmq.aviator.pipeline.exception;
 
-public enum ExoPipelineExceptionTypes {
+public enum AviatorPipelineExceptionTypes {
 	processingError,
 	notFound,
 	notAuthorized,

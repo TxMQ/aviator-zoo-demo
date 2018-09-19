@@ -1,4 +1,4 @@
-package com.txmq.exo.pipeline;
+package com.txmq.aviator.pipeline;
 
 public enum ReportingEvents {
 	submitted,

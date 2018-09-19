@@ -1,24 +1,24 @@
-package com.txmq.exo.pipeline.routers;
+package com.txmq.aviator.pipeline.routers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.core.ExoState;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.messaging.ExoNotification;
-import com.txmq.exo.pipeline.PipelineStatus;
-import com.txmq.exo.pipeline.PlatformEvents;
-import com.txmq.exo.pipeline.ReportingEvents;
-import com.txmq.exo.pipeline.metadata.ExoHandler;
-import com.txmq.exo.pipeline.metadata.ExoSubscriber;
-import com.txmq.exo.pipeline.subscribers.ExoSubscriberManager;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.messaging.AviatorNotification;
+import com.txmq.aviator.pipeline.PipelineStatus;
+import com.txmq.aviator.pipeline.PlatformEvents;
+import com.txmq.aviator.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.metadata.AviatorHandler;
+import com.txmq.aviator.pipeline.metadata.AviatorSubscriber;
+import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberManager;
 
-public class ExoPipelineRouter {
+public class AviatorPipelineRouter {
 
-	private ExoSubscriberManager subscriberManager = new ExoSubscriberManager();
+	private AviatorSubscriberManager subscriberManager = new AviatorSubscriberManager();
 	
 	////	Routers for Platform Events 	////
 	
@@ -26,22 +26,22 @@ public class ExoPipelineRouter {
 	 *	Routes messages to methods annotated with @ExoHandler(PlatformEvents.messageReceived).
 	 *	Used to route incoming messages to handlers that read data from state and return it to the client. 
 	 */
-	protected ExoParameterizedRouter<PlatformEvents> messageReceivedRouter = 
-			new ExoParameterizedRouter<PlatformEvents>(ExoHandler.class, PlatformEvents.messageReceived);
+	protected AviatorParameterizedRouter<PlatformEvents> messageReceivedRouter = 
+			new AviatorParameterizedRouter<PlatformEvents>(AviatorHandler.class, PlatformEvents.messageReceived);
 	
 	/**
 	 *	Routes messages to methods annotated with @ExoHandler(PlatformEvents.executePreConsensus).
 	 *	Used to route incoming messages to handlers that perform validation and processing pre-consensus. 
 	 */
-	protected ExoParameterizedRouter<PlatformEvents> executePreConsensusRouter = 
-			new ExoParameterizedRouter<PlatformEvents>(ExoHandler.class, PlatformEvents.executePreConsensus);
+	protected AviatorParameterizedRouter<PlatformEvents> executePreConsensusRouter = 
+			new AviatorParameterizedRouter<PlatformEvents>(AviatorHandler.class, PlatformEvents.executePreConsensus);
 	
 	/**
 	 *	Routes messages to methods annotated with @ExoHandler(PlatformEvents.executeConsensus).
 	 *	Used to route incoming messages to handlers that perform validation and processing at consensus. 
 	 */
-	protected ExoParameterizedRouter<PlatformEvents> executeConsensusRouter = 
-			new ExoParameterizedRouter<PlatformEvents>(ExoHandler.class, PlatformEvents.executeConsensus);
+	protected AviatorParameterizedRouter<PlatformEvents> executeConsensusRouter = 
+			new AviatorParameterizedRouter<PlatformEvents>(AviatorHandler.class, PlatformEvents.executeConsensus);
 	
 	////	Routers for Reporting Events	////
 	
@@ -49,29 +49,29 @@ public class ExoPipelineRouter {
 	 * Routes notifications to methods annotated with @ExoSubscriber(ReportingEvents.submitted).
 	 * Used to notify clients that a transaction has been submitted to the platform.
 	 */
-	protected ExoParameterizedRouter<ReportingEvents> submittedRouter = 
-			new ExoParameterizedRouter<ReportingEvents>(ExoSubscriber.class, ReportingEvents.submitted);
+	protected AviatorParameterizedRouter<ReportingEvents> submittedRouter = 
+			new AviatorParameterizedRouter<ReportingEvents>(AviatorSubscriber.class, ReportingEvents.submitted);
 	
 	/**
 	 * Routes notifications to methods annotated with @ExoSubscriber(ReportingEvents.preConsensusResult).
 	 * Used to notify clients that processing has occurred pre-consensus.  
 	 */
-	protected ExoParameterizedRouter<ReportingEvents> preConsensusResultRouter = 
-			new ExoParameterizedRouter<ReportingEvents>(ExoSubscriber.class, ReportingEvents.preConsensusResult);
+	protected AviatorParameterizedRouter<ReportingEvents> preConsensusResultRouter = 
+			new AviatorParameterizedRouter<ReportingEvents>(AviatorSubscriber.class, ReportingEvents.preConsensusResult);
 	
 	/**
 	 * Routes notifications to methods annotated with @ExoSubscriber(ReportingEvents.submitted).
 	 * Used to notify clients that processing has occurred at consensus.
 	 */
-	protected ExoParameterizedRouter<ReportingEvents> consensusResultRouter = 
-			new ExoParameterizedRouter<ReportingEvents>(ExoSubscriber.class, ReportingEvents.consensusResult);
+	protected AviatorParameterizedRouter<ReportingEvents> consensusResultRouter = 
+			new AviatorParameterizedRouter<ReportingEvents>(AviatorSubscriber.class, ReportingEvents.consensusResult);
 	
 	/**
 	 * Routes notifications to methods annotated with @ExoSubscriber(ReportingEvents.transactionComplete).
 	 * Used to notify clients that transaction processing has completed.
 	 */
-	protected ExoParameterizedRouter<ReportingEvents> transactionCompletedRouter = 
-			new ExoParameterizedRouter<ReportingEvents>(ExoSubscriber.class, ReportingEvents.transactionComplete);
+	protected AviatorParameterizedRouter<ReportingEvents> transactionCompletedRouter = 
+			new AviatorParameterizedRouter<ReportingEvents>(AviatorSubscriber.class, ReportingEvents.transactionComplete);
 	
 	
 	
@@ -109,14 +109,14 @@ public class ExoPipelineRouter {
 		return registeredEvents;
 	}
 	
-	public void routeMessageReceived(ExoMessage<?> message, ExoState state) {
+	public void routeMessageReceived(AviatorMessage<?> message, AviatorState state) {
 		//System.out.println("Routing " + message.uuid + " to messageReceived");
 		try {
 			Serializable result = this.route(message, state, this.messageReceivedRouter);
 			if (message.isInterrupted()) {
 				this.sendNotification(ReportingEvents.transactionComplete, result, message, PipelineStatus.INTERRUPTED, state.getMyName());
 			} 
-		} catch (ExoRoutingException e) {
+		} catch (AviatorRoutingException e) {
 			/*
 			 * Indicates that something happened during processing that should prevent 
 			 * the normal notification handler from running.  We don't need to handle 
@@ -125,7 +125,7 @@ public class ExoPipelineRouter {
 		}
 	}
 	
-	public void routeExecutePreConsensus(ExoMessage<?> message, ExoState state) throws ReflectiveOperationException {
+	public void routeExecutePreConsensus(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
 		//System.out.println("Routing " + message.uuid + " to executePreConsensus");
 		try {
 			Serializable result = this.route(message, state, this.executePreConsensusRouter);
@@ -137,7 +137,7 @@ public class ExoPipelineRouter {
 			if (message.isInterrupted()) {
 				this.sendNotification(ReportingEvents.transactionComplete, result, message, PipelineStatus.INTERRUPTED, state.getMyName());
 			} 
-		} catch (ExoRoutingException e) {
+		} catch (AviatorRoutingException e) {
 			/*
 			 * Indicates that something happened during processing that should prevent 
 			 * the normal notification handler from running.  We don't need to handle 
@@ -146,7 +146,7 @@ public class ExoPipelineRouter {
 		}
 	}
 	
-	public void routeExecuteConsensus(ExoMessage<?> message, ExoState state) throws ReflectiveOperationException {
+	public void routeExecuteConsensus(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
 		System.out.println("Routing " + message.uuid + " to executeConsensus on " + state.getMyName());
 		try {
 			Serializable result = this.route(message, state, this.executeConsensusRouter);
@@ -156,7 +156,7 @@ public class ExoPipelineRouter {
 					(message.isInterrupted()) ? PipelineStatus.INTERRUPTED : PipelineStatus.OK,
 					state.getMyName());
 			this.sendNotification(ReportingEvents.transactionComplete, result, message, PipelineStatus.COMPLETED, state.getMyName());
-		} catch (ExoRoutingException e) {
+		} catch (AviatorRoutingException e) {
 			/*
 			 * Indicates that something happened during processing that should prevent 
 			 * the normal notification handler from running.  We don't need to handle 
@@ -165,11 +165,11 @@ public class ExoPipelineRouter {
 		}		
 	}
 	
-	public void notifySubmitted(ExoMessage<?> message) {
-		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, ExoPlatformLocator.getState().getMyName());
+	public void notifySubmitted(AviatorMessage<?> message) {
+		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, PlatformLocator.getState().getMyName());
 	}
 	
-	private Serializable route(ExoMessage<?> message, ExoState state, ExoParameterizedRouter<?> router) throws ExoRoutingException {
+	private Serializable route(AviatorMessage<?> message, AviatorState state, AviatorParameterizedRouter<?> router) throws AviatorRoutingException {
 		Serializable result = null;
 		try {
 			result = router.routeTransaction(message, state);
@@ -187,7 +187,7 @@ public class ExoPipelineRouter {
 									PipelineStatus.ERROR,
 									state.getMyName());
 			
-			throw new ExoRoutingException();
+			throw new AviatorRoutingException();
 		}	
 		
 		return result;
@@ -195,10 +195,10 @@ public class ExoPipelineRouter {
 	
 	private void sendNotification(	ReportingEvents event, 
 									Serializable payload, 
-									ExoMessage<?> triggeringMessage, 
+									AviatorMessage<?> triggeringMessage, 
 									PipelineStatus status,
 									String nodeName) {
-		this.sendNotification(	new ExoNotification<Serializable>(	event, 
+		this.sendNotification(	new AviatorNotification<Serializable>(	event, 
 																	payload, 
 																	status, 
 																	triggeringMessage,
@@ -206,10 +206,10 @@ public class ExoPipelineRouter {
 		);		
 	}
 	
-	private void sendNotification(ExoNotification<?> notification) {
+	private void sendNotification(AviatorNotification<?> notification) {
 		//System.out.println("Routing " + notification.triggeringMessage.uuid + " to " + notification.event.toString());
 		
-		ExoParameterizedRouter<ReportingEvents> router = null;
+		AviatorParameterizedRouter<ReportingEvents> router = null;
 		switch (notification.event) {
 			case submitted:
 				router = this.submittedRouter;

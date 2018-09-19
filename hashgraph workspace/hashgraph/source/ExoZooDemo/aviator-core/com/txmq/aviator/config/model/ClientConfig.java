@@ -1,4 +1,4 @@
-package com.txmq.exo.config.model;
+package com.txmq.aviator.config.model;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;

@@ -1,4 +1,4 @@
-package com.txmq.exo.pipeline.routers;
+package com.txmq.aviator.pipeline.routers;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -14,11 +14,11 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 
-import com.txmq.exo.core.ExoState;
-import com.txmq.exo.messaging.AviatorTransactionType;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.messaging.websocket.grizzly.ExoMessageJsonParser;
-import com.txmq.exo.pipeline.metadata.ExoNullPayloadType;
+import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.messaging.websocket.grizzly.AviatorMessageJsonParser;
+import com.txmq.aviator.pipeline.metadata.AviatorNullPayloadType;
 
 /**
  * Generic router that enables us to "parameterize" the lookup of methods decorated with handler metadata.
@@ -47,7 +47,7 @@ import com.txmq.exo.pipeline.metadata.ExoNullPayloadType;
  * @param <E>
  */
 //public class ExoParameterizedRouter<T extends Annotation, E extends Enum<E>> extends ExoRouter<T> {
-public class ExoParameterizedRouter<E extends Enum<E>> {
+public class AviatorParameterizedRouter<E extends Enum<E>> {
 	
 	protected E event;
 	protected Class<? extends Annotation> annotationType;
@@ -76,9 +76,9 @@ public class ExoParameterizedRouter<E extends Enum<E>> {
 	 * 
 	 * Applications should not create instances of ExoTransactionRouter.
 	 * 
-	 * @see com.txmq.exo.core.ExoPlatformLocator
+	 * @see com.txmq.aviator.core.PlatformLocator
 	 */
-	public ExoParameterizedRouter(Class<? extends Annotation> annotationType, E event) {
+	public AviatorParameterizedRouter(Class<? extends Annotation> annotationType, E event) {
 		this.transactionMap = new HashMap<AviatorTransactionType, List<Method>>();
 		this.transactionProcessors = new HashMap<Class<?>, Object>(); 		
 		this.annotationType = annotationType;
@@ -95,7 +95,7 @@ public class ExoParameterizedRouter<E extends Enum<E>> {
 	 * the constructor before adding the method to the router.
 	 */
 	@SuppressWarnings("unchecked")
-	public ExoParameterizedRouter<E> addPackage(String transactionPackage) {
+	public AviatorParameterizedRouter<E> addPackage(String transactionPackage) {
 		System.out.println("Adding routes for " + event.name() + " in package " + transactionPackage);
 		Reflections reflections = new Reflections(transactionPackage, new MethodAnnotationsScanner());			
 		Set<Method> methods = reflections.getMethodsAnnotatedWith(this.annotationType);
@@ -138,8 +138,8 @@ public class ExoParameterizedRouter<E extends Enum<E>> {
 								//We use ExoNullPayloadType as a placeholder for an empty payload in annotations
 								if (payloadTypeMethod != null) {
 									Class<?> payloadType = (Class<?>) payloadTypeMethod.invoke(methodAnnotation);
-									if (!payloadType.equals(ExoNullPayloadType.class)) {
-										ExoMessageJsonParser.registerPayloadType(transactionType, payloadType);
+									if (!payloadType.equals(AviatorNullPayloadType.class)) {
+										AviatorMessageJsonParser.registerPayloadType(transactionType, payloadType);
 									}
 								}
 							}
@@ -159,7 +159,7 @@ public class ExoParameterizedRouter<E extends Enum<E>> {
 		return this;
 	}
 	
-	public Serializable routeTransaction(ExoMessage<?> message, ExoState state) throws ReflectiveOperationException {
+	public Serializable routeTransaction(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
 		return this.invokeHandler(message.transactionType, message, state);
 	}
 	

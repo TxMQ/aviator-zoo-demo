@@ -1,5 +1,5 @@
-package com.txmq.exo.pipeline.routers;
+package com.txmq.aviator.pipeline.routers;
 
-public class ExoRoutingException extends Exception {
+public class AviatorRoutingException extends Exception {
 
 }

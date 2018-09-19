@@ -1,4 +1,4 @@
-package com.txmq.exo.messaging.annotations;
+package com.txmq.aviator.messaging.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

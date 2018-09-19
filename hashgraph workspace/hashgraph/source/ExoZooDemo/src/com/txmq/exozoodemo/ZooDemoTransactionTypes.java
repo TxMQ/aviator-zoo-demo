@@ -1,7 +1,7 @@
 package com.txmq.exozoodemo;
 
-import com.txmq.exo.messaging.annotations.TransactionType;
-import com.txmq.exo.messaging.annotations.TransactionTypes;
+import com.txmq.aviator.messaging.annotations.TransactionType;
+import com.txmq.aviator.messaging.annotations.TransactionTypes;
 
 @TransactionTypes(namespace=ZooDemoTransactionTypes.NAMESPACE, onlyAnnotatedValues=true)
 public class ZooDemoTransactionTypes {

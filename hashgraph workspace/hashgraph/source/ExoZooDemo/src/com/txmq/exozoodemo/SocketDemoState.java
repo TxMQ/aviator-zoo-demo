@@ -23,7 +23,7 @@ import com.swirlds.platform.FCDataOutputStream;
 import com.swirlds.platform.FastCopyable;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
-import com.txmq.exo.core.ExoState;
+import com.txmq.aviator.core.AviatorState;
 
 
 /**
@@ -31,7 +31,7 @@ import com.txmq.exo.core.ExoState;
  * a string, and the state is just a list of the strings in all the transactions handled so far, in the
  * order that they were handled.
  */
-public class SocketDemoState extends ExoState implements SwirldState {
+public class SocketDemoState extends AviatorState implements SwirldState {
 	
 	
 	/**

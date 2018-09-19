@@ -1,4 +1,4 @@
-package com.txmq.exo.pipeline.subscribers;
+package com.txmq.aviator.pipeline.subscribers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,18 +9,18 @@ import java.util.UUID;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.messaging.ExoNotification;
-import com.txmq.exo.pipeline.ReportingEvents;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.messaging.AviatorMessage;
+import com.txmq.aviator.messaging.AviatorNotification;
+import com.txmq.aviator.pipeline.ReportingEvents;
 
-public class ExoSubscriberManager {
+public class AviatorSubscriberManager {
 
 	private static Map<String, Map<ReportingEvents, Map<UUID, Object>>> responders;
 	private static Map<Object, List<ResponderLookup>> responderLookups;
 	
 	//TODO:  Should allow for more than one subscriber per message, per event?
-	public ExoSubscriberManager() {
+	public AviatorSubscriberManager() {
 		if (responders == null) {
 			responders = Collections.synchronizedMap(new HashMap<String, Map<ReportingEvents, Map<UUID, Object>>>());
 		}
@@ -32,7 +32,7 @@ public class ExoSubscriberManager {
 	
 	private Map<ReportingEvents, Map<UUID, Object>> getRespondersForNode(String nodeName) {
 		if (nodeName == null) {
-			nodeName = ExoPlatformLocator.getState().getMyName();
+			nodeName = PlatformLocator.getState().getMyName();
 		}
 		
 		if (!responders.containsKey(nodeName)) {
@@ -55,8 +55,8 @@ public class ExoSubscriberManager {
 		return responders.get(nodeName);
 	}
 	
-	public synchronized void registerResponder(ExoMessage<?> message, ReportingEvents event, Object responderInstance) {	
-		String myName = ExoPlatformLocator.getState().getMyName();
+	public synchronized void registerResponder(AviatorMessage<?> message, ReportingEvents event, Object responderInstance) {	
+		String myName = PlatformLocator.getState().getMyName();
 		getRespondersForNode(myName).get(event).put(message.uuid, responderInstance);
 		
 		if (!responderLookups.containsKey(responderInstance)) {
@@ -66,8 +66,8 @@ public class ExoSubscriberManager {
 		responderLookups.get(responderInstance).add(new ResponderLookup(myName, event, message.uuid));
 	}
 	
-	public synchronized void registerAllAvailableResponders(ExoMessage<?> message, Object responderInstance) {
-		List<ReportingEvents> events = ExoPlatformLocator
+	public synchronized void registerAllAvailableResponders(AviatorMessage<?> message, Object responderInstance) {
+		List<ReportingEvents> events = PlatformLocator
 				.getPipelineRouter()
 				.getRegisteredNotificationsForTransactionType(message.transactionType);
 		
@@ -77,7 +77,7 @@ public class ExoSubscriberManager {
 		
 	}
 	
-	public synchronized Object getResponder(ExoNotification<?> notification) {
+	public synchronized Object getResponder(AviatorNotification<?> notification) {
 		Map<UUID, Object> eventMap = getRespondersForNode(notification.nodeName).get(notification.event);
 		if (eventMap.containsKey(notification.triggeringMessage.uuid)) {
 			return eventMap.get(notification.triggeringMessage.uuid);
@@ -86,7 +86,7 @@ public class ExoSubscriberManager {
 		}
 	}
 	
-	public synchronized void removeResponder(ExoNotification<?> notification) {
+	public synchronized void removeResponder(AviatorNotification<?> notification) {
 		Map<UUID, Object> eventMap = getRespondersForNode(notification.nodeName).get(notification.event);
 		eventMap.remove(notification.triggeringMessage.uuid);
 	}	

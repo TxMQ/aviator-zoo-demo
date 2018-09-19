@@ -1,7 +1,7 @@
-package com.txmq.exo.messaging;
+package com.txmq.aviator.messaging;
 
-import com.txmq.exo.messaging.annotations.TransactionType;
-import com.txmq.exo.messaging.annotations.TransactionTypes;
+import com.txmq.aviator.messaging.annotations.TransactionType;
+import com.txmq.aviator.messaging.annotations.TransactionTypes;
 
 @TransactionTypes(namespace=AviatorCoreTransactionTypes.NAMESPACE, onlyAnnotatedValues=true)
 public class AviatorCoreTransactionTypes {

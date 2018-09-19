@@ -1,4 +1,4 @@
-package com.txmq.exo.config;
+package com.txmq.aviator.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
