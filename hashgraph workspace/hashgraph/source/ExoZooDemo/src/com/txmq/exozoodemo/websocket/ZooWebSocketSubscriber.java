@@ -1,10 +1,10 @@
 package com.txmq.exozoodemo.websocket;
 
-import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.messaging.ExoNotification;
-import com.txmq.exo.pipeline.ReportingEvents;
-import com.txmq.exo.pipeline.metadata.ExoSubscriber;
-import com.txmq.exo.pipeline.subscribers.ExoWebSocketSubscriber;
+import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.messaging.AviatorNotification;
+import com.txmq.aviator.pipeline.ReportingEvents;
+import com.txmq.aviator.pipeline.metadata.AviatorSubscriber;
+import com.txmq.aviator.pipeline.subscribers.AviatorWebSocketSubscriber;
 import com.txmq.exozoodemo.ZooDemoTransactionTypes;
 
 /**
@@ -15,25 +15,25 @@ import com.txmq.exozoodemo.ZooDemoTransactionTypes;
  * @author craigdrabik
  *
  */
-public class ZooWebSocketSubscriber extends ExoWebSocketSubscriber {
+public class ZooWebSocketSubscriber extends AviatorWebSocketSubscriber {
 
-	@ExoSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
+	@AviatorSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
 					transactionType=ZooDemoTransactionTypes.ADD_ANIMAL, 
 					events= {	ReportingEvents.submitted, 
 								ReportingEvents.preConsensusResult, 
 								ReportingEvents.consensusResult, 
 								ReportingEvents.transactionComplete	})
-	public void addAnimalTransactionProgress(ExoNotification<?> notification) {
-		String myName = ExoPlatformLocator.getState().getMyName();
+	public void addAnimalTransactionProgress(AviatorNotification<?> notification) {
+		String myName = PlatformLocator.getState().getMyName();
 		System.out.println("Sending notification from " + myName);
 		this.sendNotification(notification);
 	}
 	
-	@ExoSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
+	@AviatorSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
 					transactionType=ZooDemoTransactionTypes.GET_ZOO, 
 					events={ReportingEvents.transactionComplete})
-	public void getZooTransactionProgress(ExoNotification<?> notification) {
-		String myName = ExoPlatformLocator.getState().getMyName();
+	public void getZooTransactionProgress(AviatorNotification<?> notification) {
+		String myName = PlatformLocator.getState().getMyName();
 		System.out.println("Sending notification from " + myName);
 		this.sendNotification(notification);
 	}
