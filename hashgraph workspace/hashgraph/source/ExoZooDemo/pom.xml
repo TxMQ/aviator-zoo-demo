@@ -17,69 +17,15 @@
   <groupId>ExoZooDemo</groupId>
   <!-- Eclipse can't handle a variable ref here -->
   <artifactId>ExoZooDemo</artifactId>
-  <!-- 
-  <dependencyManagement>
-  	<dependencies>
-	  	<dependency>
-		    <groupId>org.glassfish.jersey</groupId>
-		    <artifactId>jersey-bom</artifactId>
-		    <version>2.26</version>
-		    <type>pom</type>
-		    <scope>import</scope>
-		</dependency>
-  	</dependencies>
-  </dependencyManagement>
-  -->
+  
+  <repositories>
+    <repository>
+      <id>aviator-core</id>
+      <name>TxMQ Aviator Core Public Repository</name>
+      <url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
+    </repository>
+    </repositories>
   <dependencies>
-  <!-- 
-	<dependency>
-	    <groupId>org.glassfish.jersey.inject</groupId>
-	    <artifactId>jersey-hk2</artifactId>
-	</dependency>
-  	<dependency>
-  		<groupId>org.glassfish.jersey.containers</groupId>
-  		<artifactId>jersey-container-grizzly2-http</artifactId>
-  	</dependency>
-  	<dependency>
-	     <groupId>org.glassfish.grizzly</groupId>
-	     <artifactId>grizzly-http-server-multipart</artifactId>
-	     <version>2.4.0</version>
-	</dependency>
-	<dependency>
-     <groupId>org.glassfish.grizzly</groupId>
-     <artifactId>grizzly-http-servlet</artifactId>
-     <version>2.4.0</version>
-	</dependency>
-	<dependency>
-     <groupId>org.glassfish.grizzly</groupId>
-     <artifactId>grizzly-websockets</artifactId>
-     <version>2.4.0</version>
-	</dependency>
-  	<dependency>
-	    <groupId>org.glassfish.jersey.media</groupId>
-	    <artifactId>jersey-media-multipart</artifactId>
-	    <version>2.26</version>        
-	</dependency>
-	<dependency>
-  		<groupId>org.glassfish.jersey.media</groupId>
-  		<artifactId>jersey-media-json-jackson</artifactId>
-  	</dependency>
-  	<dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>3.1.0</version>
-    </dependency>
-    <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-web-api</artifactId>
-        <version>8.0</version>
-    </dependency>
-	<dependency>
-	    <groupId>org.reflections</groupId>
-	    <artifactId>reflections</artifactId>
-	    <version>0.9.9</version>
-	</dependency>
-	 -->
 	<dependency>
 		<groupId>com.txmq.aviator</groupId>
 		<artifactId>AviatorCore</artifactId>
