@@ -17,6 +17,7 @@
   <groupId>ExoZooDemo</groupId>
   <!-- Eclipse can't handle a variable ref here -->
   <artifactId>ExoZooDemo</artifactId>
+  <!-- 
   <dependencyManagement>
   	<dependencies>
 	  	<dependency>
@@ -28,7 +29,9 @@
 		</dependency>
   	</dependencies>
   </dependencyManagement>
+  -->
   <dependencies>
+  <!-- 
 	<dependency>
 	    <groupId>org.glassfish.jersey.inject</groupId>
 	    <artifactId>jersey-hk2</artifactId>
@@ -70,21 +73,22 @@
         <groupId>javax</groupId>
         <artifactId>javaee-web-api</artifactId>
         <version>8.0</version>
-    </dependency><!-- 
-    <dependency>
-         <groupId>org.atmosphere</groupId>
-         <artifactId>atmosphere-runtime</artifactId>
-         <version>2.4.26</version>
-      </dependency> -->
-      <dependency>
-	  <groupId>org.lightcouch</groupId>
-	  <artifactId>lightcouch</artifactId>
-	  <version>0.2.0</version>
-	</dependency>
+    </dependency>
 	<dependency>
 	    <groupId>org.reflections</groupId>
 	    <artifactId>reflections</artifactId>
 	    <version>0.9.9</version>
+	</dependency>
+	 -->
+	<dependency>
+		<groupId>com.txmq.aviator</groupId>
+		<artifactId>AviatorCore</artifactId>
+		<version>1.0.1</version>
+	</dependency>
+    <dependency>
+	  <groupId>org.lightcouch</groupId>
+	  <artifactId>lightcouch</artifactId>
+	  <version>0.2.0</version>
 	</dependency>
 	<dependency>
 	    <groupId>com.lmax</groupId>
