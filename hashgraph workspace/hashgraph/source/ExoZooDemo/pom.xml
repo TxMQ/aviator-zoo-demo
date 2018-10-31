@@ -17,76 +17,52 @@
   <groupId>ExoZooDemo</groupId>
   <!-- Eclipse can't handle a variable ref here -->
   <artifactId>ExoZooDemo</artifactId>
-  <dependencyManagement>
-  	<dependencies>
-	  	<dependency>
-		    <groupId>org.glassfish.jersey</groupId>
-		    <artifactId>jersey-bom</artifactId>
-		    <version>2.26</version>
-		    <type>pom</type>
-		    <scope>import</scope>
-		</dependency>
-  	</dependencies>
-  </dependencyManagement>
+  
+  <repositories>
+    <repository>
+      <id>aviator-core</id>
+      <name>TxMQ Aviator Core Public Repository</name>
+      <url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
+    </repository>
+    <repository>
+      <id>platform.repo</id>
+      <name>platform</name>
+      <url>${platform.repo}</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>app.repo</id>
+      <name>app</name>
+      <url>${app.repo}</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
 	<dependency>
-	    <groupId>org.glassfish.jersey.inject</groupId>
-	    <artifactId>jersey-hk2</artifactId>
-	</dependency>
-  	<dependency>
-  		<groupId>org.glassfish.jersey.containers</groupId>
-  		<artifactId>jersey-container-grizzly2-http</artifactId>
-  	</dependency>
-  	<dependency>
-	     <groupId>org.glassfish.grizzly</groupId>
-	     <artifactId>grizzly-http-server-multipart</artifactId>
-	     <version>2.4.0</version>
-	</dependency>
-	<dependency>
-     <groupId>org.glassfish.grizzly</groupId>
-     <artifactId>grizzly-http-servlet</artifactId>
-     <version>2.4.0</version>
-	</dependency>
-	<dependency>
-     <groupId>org.glassfish.grizzly</groupId>
-     <artifactId>grizzly-websockets</artifactId>
-     <version>2.4.0</version>
-	</dependency>
-  	<dependency>
-	    <groupId>org.glassfish.jersey.media</groupId>
-	    <artifactId>jersey-media-multipart</artifactId>
-	    <version>2.26</version>        
-	</dependency>
-	<dependency>
-  		<groupId>org.glassfish.jersey.media</groupId>
-  		<artifactId>jersey-media-json-jackson</artifactId>
-  	</dependency>
-  	<dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>3.1.0</version>
-    </dependency>
-    <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-web-api</artifactId>
-        <version>8.0</version>
-    </dependency><!-- 
-    <dependency>
-         <groupId>org.atmosphere</groupId>
-         <artifactId>atmosphere-runtime</artifactId>
-         <version>2.4.26</version>
-      </dependency> -->
-      <dependency>
-	  <groupId>org.lightcouch</groupId>
-	  <artifactId>lightcouch</artifactId>
-	  <version>0.2.0</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.reflections</groupId>
-	    <artifactId>reflections</artifactId>
-	    <version>0.9.9</version>
-	</dependency>
-	<dependency>
+		<groupId>com.txmq.aviator</groupId>
+		<artifactId>AviatorCore</artifactId>
+		<version>1.0.1</version>
+   </dependency>
+   <dependency>
+   		<groupId>com.txmq.aviator</groupId>
+   		<artifactId>CouchDBBlockLogger</artifactId>
+   		<version>1.0.0</version>
+   </dependency>
+   <dependency>
 	    <groupId>com.lmax</groupId>
 	    <artifactId>disruptor</artifactId>
 	    <version>3.3.6</version>

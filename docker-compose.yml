@@ -42,3 +42,5 @@ services:
       replicas: 1
       restart_policy:
         condition: always
+    logging:
+      driver: none
