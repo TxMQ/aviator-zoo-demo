@@ -71,6 +71,28 @@
       <name>TxMQ Aviator Core Public Repository</name>
       <url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
     </repository>
+    <repository>
+      <releases>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>platform.repo</id>
+      <name>platform</name>
+      <url>${platform.repo}</url>
+    </repository>
+    <repository>
+      <releases>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>app.repo</id>
+      <name>app</name>
+      <url>${app.repo}</url>
+    </repository>
   </repositories>
   <properties>
     <sdk.dir>${project.basedir}/../..</sdk.dir>
