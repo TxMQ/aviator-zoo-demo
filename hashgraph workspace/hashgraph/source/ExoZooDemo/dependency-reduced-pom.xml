@@ -65,6 +65,13 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>aviator-core</id>
+      <name>TxMQ Aviator Core Public Repository</name>
+      <url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
+    </repository>
+  </repositories>
   <properties>
     <sdk.dir>${project.basedir}/../..</sdk.dir>
     <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
