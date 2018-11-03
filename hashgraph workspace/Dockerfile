@@ -1,4 +1,4 @@
-FROM maven:3.3-jdk-8 AS hg-build
+FROM maven:3.5-jdk-10-slim AS hg-build
 
 ADD ./hashgraph /opt/maven
 copy ./hashgraph/aviator-config.hashgraph.json /opt/maven/aviator-config.json
