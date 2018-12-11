@@ -24,6 +24,8 @@ import com.txmq.exozoodemo.SocketDemoState;
  * prints it, too.
  */
 public class ExoZooDemoMain implements SwirldMain {
+	public static Platform staticPlatform;
+	
 	/** the platform running this app */
 	public Platform platform;
 	/** ID number for this member */
@@ -56,7 +58,6 @@ public class ExoZooDemoMain implements SwirldMain {
 		this.platform = platform;
 		this.selfId = id;
 		//this.console = platform.createConsole(true); // create the window, make it visible
-		platform.setAbout("Hello Swirld v. 1.0\n"); // set the browser's "about" box
 		platform.setSleepAfterSync(sleepPeriod);
 
 		try {
@@ -64,35 +65,7 @@ public class ExoZooDemoMain implements SwirldMain {
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		/*
-		//Initialize the platform locator, so Exo code can get a reference to the platform when needed.
-		String[] transactionProcessorPackages = {"com.txmq.exo.messaging.rest", "com.txmq.socketdemo.transactions"};
-		CouchDBBlockLogger blockLogger = new CouchDBBlockLogger(
-				"zoo-" + platform.getAddress().getSelfName().toLowerCase(),
-				"http",
-				"couchdb",
-				//"localhost",
-				5984);
-		ExoPlatformLocator.init(platform, SocketDemoTransactionTypes.class, transactionProcessorPackages, blockLogger);
-		
-		//Initialize REST endpoints exposed by this Hashgraph
-		ExoPlatformLocator.initREST(
-			platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 2000, 
-			new String[] {"com.txmq.socketdemo.rest"}
-		);
-		
-		//Initialize socket server
-		ExoPlatformLocator.initSecuredSocketMessaging(
-			platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 1000,
-			new String[] {"com.txmq.socketdemo.socket"},
-			"client.public",
-			"client",
-			"server.private",
-			"server"			
-		);
-		 */
+		}		
 	}
 
 	@Override

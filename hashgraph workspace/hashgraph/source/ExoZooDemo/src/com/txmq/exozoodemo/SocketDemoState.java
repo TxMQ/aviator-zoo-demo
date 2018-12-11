@@ -23,6 +23,7 @@ import com.swirlds.platform.FCDataOutputStream;
 import com.swirlds.platform.FastCopyable;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
+import com.swirlds.platform.Transaction;
 import com.txmq.aviator.core.AviatorState;
 
 
@@ -120,9 +121,9 @@ public class SocketDemoState extends AviatorState implements SwirldState {
 
 	@Override
 	public synchronized void handleTransaction(long id, boolean consensus,
-			Instant timeCreated, byte[] transaction, Address address) {
+			Instant timeCreated, Instant timestamp, Transaction transaction, Address address) {
 		
-		super.handleTransaction(id, consensus, timeCreated, transaction, address);		
+		super.handleTransaction(id, consensus, timeCreated, timestamp, transaction, address);		
 	}
 
 	@Override
@@ -133,4 +134,18 @@ public class SocketDemoState extends AviatorState implements SwirldState {
 	public synchronized void init(Platform platform, AddressBook addressBook) {
 		super.init(platform, addressBook);
 	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void expandSignatures(Transaction arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }	

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <artifactId>SwirldsDemosParent</artifactId>
-    <groupId>SwirldsDemos</groupId>
+    <artifactId>platform-apps</artifactId>
+    <groupId>SwirldsPlatform</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../pom-parent.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>ExoZooDemo</groupId>
   <artifactId>ExoZooDemo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -65,6 +65,16 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>production</id>
+      <properties>
+        <sdk.dir>${project.basedir}/../..</sdk.dir>
+        <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+        <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
+      </properties>
+    </profile>
+  </profiles>
   <repositories>
     <repository>
       <id>aviator-core</id>
@@ -95,6 +105,7 @@
     </repository>
   </repositories>
   <properties>
+    <mdep.skip>false</mdep.skip>
     <sdk.dir>${project.basedir}/../..</sdk.dir>
     <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
     <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
