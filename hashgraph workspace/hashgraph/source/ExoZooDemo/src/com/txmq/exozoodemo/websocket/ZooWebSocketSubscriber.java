@@ -24,8 +24,6 @@ public class ZooWebSocketSubscriber extends AviatorWebSocketSubscriber {
 								ReportingEvents.consensusResult, 
 								ReportingEvents.transactionComplete	})
 	public void addAnimalTransactionProgress(AviatorNotification<?> notification) {
-		String myName = PlatformLocator.getState().getMyName();
-		System.out.println("Sending notification from " + myName);
 		this.sendNotification(notification);
 	}
 	
@@ -33,8 +31,6 @@ public class ZooWebSocketSubscriber extends AviatorWebSocketSubscriber {
 					transactionType=ZooDemoTransactionTypes.GET_ZOO, 
 					events={ReportingEvents.transactionComplete})
 	public void getZooTransactionProgress(AviatorNotification<?> notification) {
-		String myName = PlatformLocator.getState().getMyName();
-		System.out.println("Sending notification from " + myName);
 		this.sendNotification(notification);
 	}
 

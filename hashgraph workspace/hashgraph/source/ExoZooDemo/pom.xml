@@ -1,153 +1,170 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <groupId>SwirldsDemos</groupId>
-    <artifactId>SwirldsDemosParent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../pom-parent.xml</relativePath>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>SwirldsPlatform</groupId>
+		<artifactId>platform-apps</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<properties>
+		<mdep.skip>false</mdep.skip>
+		<app.repo>${project.baseUri}../../data/repos/app/</app.repo>
+		<platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+		<sdk.dir>${project.basedir}/../..</sdk.dir>
+		<app.name>ExoZooDemo</app.name>
+	</properties>
+	<groupId>ExoZooDemo</groupId>
+	<artifactId>ExoZooDemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <properties>
-    <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
-    <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
-    <sdk.dir>${project.basedir}/../..</sdk.dir>
-    <app.name>ExoZooDemo</app.name>
-  </properties>
+	<repositories>
+		<repository>
+			<id>aviator-core</id>
+			<name>TxMQ Aviator Core Public Repository</name>
+			<url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
+		</repository>
+		<repository>
+			<id>platform.repo</id>
+			<name>platform</name>
+			<url>${platform.repo}</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>app.repo</id>
+			<name>app</name>
+			<url>${app.repo}</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>ExoZooDemo</groupId>
-  <!-- Eclipse can't handle a variable ref here -->
-  <artifactId>ExoZooDemo</artifactId>
-  
-  <repositories>
-    <repository>
-      <id>aviator-core</id>
-      <name>TxMQ Aviator Core Public Repository</name>
-      <url>https://nexus.txmq.com:8080/repository/aviator-core/</url>
-    </repository>
-    <repository>
-      <id>platform.repo</id>
-      <name>platform</name>
-      <url>${platform.repo}</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>app.repo</id>
-      <name>app</name>
-      <url>${app.repo}</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-    </repository>
-  </repositories>
 	<dependencyManagement>
-    <dependencies>
-      <dependency>
+		<dependencies>
+			<dependency>
 				<groupId>com.txmq.aviator</groupId>
 				<artifactId>aviator-core-bom</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>		
-  	</dependencies>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
 			<artifactId>AviatorCore</artifactId>
 		</dependency>
 		<dependency>
-				<groupId>com.txmq.aviator</groupId>
-				<artifactId>CouchDBBlockLogger</artifactId>
+			<groupId>com.txmq.aviator</groupId>
+			<artifactId>CouchDBBlockLogger</artifactId>
 		</dependency>
 		<dependency>
-				<groupId>com.lmax</groupId>
-				<artifactId>disruptor</artifactId>
-				<version>3.3.6</version>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.3.6</version>
 		</dependency>
-    <dependency>
-     <groupId>org.apache.logging.log4j</groupId>
-     <artifactId>log4j-api</artifactId>
-     <version>2.7</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.7</version>
-    </dependency>
-  </dependencies>
-  <build>
-  	<plugins>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.7</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<executions>
-						<execution>
-								<phase>generate-sources</phase>
-								<goals>
-										<goal>add-source</goal>
-								</goals>
-								<configuration>
-										<sources>
-												<source>aviator-core</source>
-										</sources>
-								</configuration>
-						</execution>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>aviator-core</source>
+							</sources>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
-  		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-shade-plugin</artifactId>
-		  <version>2.3</version>
-		  <configuration>
-		    <filters>
-		        <filter>
-		            <artifact>*:*</artifact>
-		            <excludes>
-		                <exclude>META-INF/*.SF</exclude>
-		                <exclude>META-INF/*.DSA</exclude>
-		                <exclude>META-INF/*.RSA</exclude>
-		            </excludes>
-		        </filter>
-		    </filters>
-		  </configuration>
-		  <executions>
-		    <execution>
-				<phase>package</phase>
-				<goals>
-					<goal>shade</goal>
-				</goals>			
-		      </execution>
-		  </executions>
-		</plugin>
-		<plugin>
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-jar-plugin</artifactId>
-	      <version>3.0.2</version>
-	      <configuration>
-	        <archive>
-	          <manifest>
-	          <!-- 
-	            <addClasspath>true</addClasspath>
-	            <classpathPrefix>lib/</classpathPrefix>
-	           -->
-	            <mainClass>ExoZooDemoMain</mainClass>
-	          </manifest>
-	        </archive>
-	      </configuration>
-	    </plugin>
-  	</plugins>
-  </build>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+								<exclude>org/bouncycastle/**</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<!-- <addClasspath>true</addClasspath> <classpathPrefix>lib/</classpathPrefix> -->
+							<mainClass>ExoZooDemoMain</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>production</id>
+			<activation>
+
+				<activeByDefault>true</activeByDefault>
+
+			</activation>
+			<properties>
+				<app.repo>${project.baseUri}../../data/repos/app/</app.repo>
+				<platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+				<sdk.dir>${project.basedir}/../..</sdk.dir>
+			</properties>
+		</profile>
+	</profiles>
 </project>
