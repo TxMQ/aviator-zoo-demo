@@ -2,5 +2,8 @@
 /.recommenders/
 RemoteSystemTempFiles
 data
-logs/*
+logs/**
 swirlds.jar
+hashgraph/kernels
+hashgraph/data
+hashgraph/swirlds.jar
