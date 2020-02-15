@@ -50,7 +50,8 @@ public class AviatorSwirlds extends Aviator implements IAviator {
 	public void createTransactionImpl(AviatorMessage<? extends Serializable> transaction) throws IOException {
 		// Process message received handlers
 		getPipelineRouter().routeMessageReceived(transaction, getState());
-
+		platform.releaseState();
+		
 		// If the transaction was not interrupted, submit it to the platform
 		if (transaction.isInterrupted() == false) {
 			platform.createTransaction(new Transaction(transaction.serialize()));
@@ -75,6 +76,10 @@ public class AviatorSwirlds extends Aviator implements IAviator {
 	/**
 	 * Swirlds-specific implementation - returns the swirlds state if it exists, otherwise default to super()
 	 * 
+	 * IMPORTANT:  If you use getState() - and I've gone a long way towards making sure you don't have to -
+	 * remember to call platform.releaseState() when you finish with it.  IF your application hangs for no
+	 * reason, it's probably because you forgot to release the state.
+	 * 
 	 * @return Aviator swirlds state
 	 * @throws IllegalStateException
 	 */
@@ -94,4 +99,11 @@ public class AviatorSwirlds extends Aviator implements IAviator {
 		return platform.getAddress().getPortExternalIpv4();
 	}
 
+	@Override
+	public String getNodeNameImpl() {
+		String name = getState().getMyName();
+		platform.releaseState();
+		
+		return name;
+	}
 }

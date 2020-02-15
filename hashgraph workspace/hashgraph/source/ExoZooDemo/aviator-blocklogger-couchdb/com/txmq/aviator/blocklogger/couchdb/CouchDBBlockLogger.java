@@ -198,7 +198,7 @@ public class CouchDBBlockLogger implements IBlockLogger {
 		//Determine database name
 		String databaseName = parameterMap.get("databaseName");
 		if (parameterMap.containsKey("useAsPrefix") && parameterMap.get("useAsPrefix").equals("true")) {
-			databaseName = databaseName + Aviator.getState().getMyName().toLowerCase();
+			databaseName = databaseName + Aviator.getNodeName().toLowerCase();
 		}
 		
 		//Determine protocol
