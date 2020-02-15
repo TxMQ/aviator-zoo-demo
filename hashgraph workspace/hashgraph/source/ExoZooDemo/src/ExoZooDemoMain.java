@@ -15,7 +15,7 @@ import com.swirlds.platform.Console;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
-import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.core.swirlds.AviatorSwirlds;
 import com.txmq.exozoodemo.SocketDemoState;
 
 /**
@@ -61,7 +61,7 @@ public class ExoZooDemoMain implements SwirldMain {
 		platform.setSleepAfterSync(sleepPeriod);
 
 		try {
-			PlatformLocator.initFromConfig(platform);
+			AviatorSwirlds.init(platform);			
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

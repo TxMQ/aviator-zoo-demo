@@ -108,9 +108,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.txmq.aviator</groupId>
-        <artifactId>aviator-core-bom</artifactId>
-        <version>1.0.2</version>
+        <groupId>org.glassfish.jersey</groupId>
+        <artifactId>jersey-bom</artifactId>
+        <version>2.26</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -118,8 +118,10 @@
   </dependencyManagement>
   <properties>
     <mdep.skip>false</mdep.skip>
+    <maven.compiler.target>1.10</maven.compiler.target>
     <sdk.dir>${project.basedir}/../..</sdk.dir>
     <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+    <maven.compiler.source>1.10</maven.compiler.source>
     <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
     <app.name>ExoZooDemo</app.name>
   </properties>

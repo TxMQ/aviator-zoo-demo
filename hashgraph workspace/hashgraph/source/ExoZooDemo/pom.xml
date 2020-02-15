@@ -9,6 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
+		<maven.compiler.source>1.10</maven.compiler.source>
+		<maven.compiler.target>1.10</maven.compiler.target>
 		<mdep.skip>false</mdep.skip>
 		<app.repo>${project.baseUri}../../data/repos/app/</app.repo>
 		<platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
@@ -53,7 +55,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
+<!-- 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -64,7 +66,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement> 
 	<dependencies>
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
@@ -74,6 +76,33 @@
 			<groupId>com.txmq.aviator</groupId>
 			<artifactId>CouchDBBlockLogger</artifactId>
 		</dependency>
+	 -->
+	 <dependencyManagement>
+	  	<dependencies>
+		  	<dependency>
+			    <groupId>org.glassfish.jersey</groupId>
+			    <artifactId>jersey-bom</artifactId>
+			    <version>2.26</version>
+			    <type>pom</type>
+			    <scope>import</scope>
+			</dependency>
+	  	</dependencies>
+	  </dependencyManagement>
+	  <dependencies>
+	  	<dependency>
+		    <groupId>org.reflections</groupId>
+		    <artifactId>reflections</artifactId>
+		    <version>0.9.9</version>
+		  </dependency>
+	    <dependency>
+	        <groupId>org.apache.commons</groupId>
+	        <artifactId>commons-collections4</artifactId>
+	        <version>4.2</version>
+	    </dependency>
+	    <dependency>
+	  		<groupId>org.glassfish.jersey.media</groupId>
+	  		<artifactId>jersey-media-json-jackson</artifactId>
+	  	</dependency>
 		<dependency>
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
@@ -89,6 +118,105 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.7</version>
 		</dependency>
+	      <dependency>
+	        <groupId>org.glassfish.jersey.core</groupId>
+	        <artifactId>jersey-client</artifactId>
+	      </dependency>
+	      <dependency>
+	        <groupId>org.glassfish.jersey.inject</groupId>
+	        <artifactId>jersey-hk2</artifactId>
+	      </dependency>
+	      <dependency>
+	        <groupId>org.glassfish.jersey.media</groupId>
+	        <artifactId>jersey-media-json-jackson</artifactId>
+	      </dependency>
+	      <dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.1</version>
+	      </dependency>
+	      <dependency>
+	        <groupId>org.glassfish.jaxb</groupId>
+	        <artifactId>jaxb-runtime</artifactId>
+	        <version>2.3.1</version>
+	      </dependency>
+	      <dependency>
+	        <groupId>javax.activation</groupId>
+	        <artifactId>activation</artifactId>
+	        <version>1.1</version>
+	      </dependency>
+	      <dependency>
+	        <groupId>org.lightcouch</groupId>
+	        <artifactId>lightcouch</artifactId>
+	        <version>0.2.0</version>
+	      </dependency>
+	      <dependency>
+	    <groupId>org.glassfish.jersey.inject</groupId>
+	    <artifactId>jersey-hk2</artifactId>
+	  </dependency>
+  	  <dependency>
+  		<groupId>org.glassfish.jersey.containers</groupId>
+  		<artifactId>jersey-container-grizzly2-http</artifactId>
+  	  </dependency>
+  	<dependency>
+	     <groupId>org.glassfish.grizzly</groupId>
+	     <artifactId>grizzly-http-server-multipart</artifactId>
+	     <version>2.4.0</version>
+	</dependency>
+	<dependency>
+     <groupId>org.glassfish.grizzly</groupId>
+     <artifactId>grizzly-http-servlet</artifactId>
+     <version>2.4.0</version>
+	</dependency>
+	<dependency>
+     <groupId>org.glassfish.grizzly</groupId>
+     <artifactId>grizzly-websockets</artifactId>
+     <version>2.4.0</version>
+	</dependency>
+  	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-multipart</artifactId>
+	    <version>2.26</version>        
+	</dependency>
+	<dependency>
+  		<groupId>org.glassfish.jersey.media</groupId>
+  		<artifactId>jersey-media-json-jackson</artifactId>
+  	</dependency>
+  	<dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+        <version>8.0</version>
+    </dependency>
+	<dependency>
+	    <groupId>org.reflections</groupId>
+	    <artifactId>reflections</artifactId>
+	    <version>0.9.9</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.lmax</groupId>
+	    <artifactId>disruptor</artifactId>
+	    <version>3.3.6</version>
+	</dependency>
+    <dependency>
+     <groupId>org.apache.logging.log4j</groupId>
+     <artifactId>log4j-api</artifactId>
+     <version>2.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.7</version>
+    </dependency>
+    <dependency>
+	  <groupId>org.java-websocket</groupId>
+	  <artifactId>Java-WebSocket</artifactId>
+	  <version>1.3.9</version>
+	</dependency>
 	</dependencies>
 	<build>
 		<plugins>
