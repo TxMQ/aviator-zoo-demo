@@ -22,7 +22,6 @@
             <configuration>
               <sources>
                 <source>aviator-rest</source>
-                <source>aviator-core-swirlds</source>
               </sources>
             </configuration>
           </execution>

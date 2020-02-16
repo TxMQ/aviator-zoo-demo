@@ -79,6 +79,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
+			<artifactId>AviatorCoreSwirlds</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.txmq.aviator</groupId>
 			<artifactId>AviatorBlockLoggerCouchDB</artifactId>
 		</dependency>
 	  	<dependency>
@@ -223,9 +227,9 @@
 						<configuration>
 							<sources>
 								<!-- <source>aviator-core</source>
-								<source>aviator-blocklogger-couchdb</source> -->
+								<source>aviator-blocklogger-couchdb</source>
+								<source>aviator-core-swirlds</source> -->
 								<source>aviator-rest</source>
-								<source>aviator-core-swirlds</source>
 							</sources>
 						</configuration>
 					</execution>
