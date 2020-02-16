@@ -1,6 +1,5 @@
 package com.txmq.exozoodemo.websocket;
 
-import com.txmq.aviator.core.PlatformLocator;
 import com.txmq.aviator.messaging.AviatorNotification;
 import com.txmq.aviator.pipeline.ReportingEvents;
 import com.txmq.aviator.pipeline.metadata.AviatorSubscriber;

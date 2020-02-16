@@ -8,26 +8,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ExoZooDemo</groupId>
   <artifactId>ExoZooDemo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>aviator-core</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>2.3</version>
@@ -108,9 +90,16 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.glassfish.jersey</groupId>
+        <artifactId>jersey-bom</artifactId>
+        <version>2.29</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>com.txmq.aviator</groupId>
         <artifactId>aviator-core-bom</artifactId>
-        <version>1.0.2</version>
+        <version>1.2.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -118,8 +107,10 @@
   </dependencyManagement>
   <properties>
     <mdep.skip>false</mdep.skip>
+    <maven.compiler.target>1.10</maven.compiler.target>
     <sdk.dir>${project.basedir}/../..</sdk.dir>
     <platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
+    <maven.compiler.source>1.10</maven.compiler.source>
     <app.repo>${project.baseUri}../../data/repos/app/</app.repo>
     <app.name>ExoZooDemo</app.name>
   </properties>

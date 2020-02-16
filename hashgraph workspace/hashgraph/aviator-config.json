@@ -1,8 +1,6 @@
 {
     "transactionProcessors": [
-		"com.txmq.exozoodemo.rest",
-		"com.txmq.exozoodemo.websocket",
-		"com.txmq.exozoodemo.transactions",
+		"com.txmq.exozoodemo",
 		"com.txmq.aviator.messaging.rest",
 		"com.txmq.aviator.persistence.transactions"
 	],
@@ -15,7 +13,7 @@
     },
     "blockLoggers": [
     	{
-			"loggerClass": "com.txmq.aviator.persistence.couchdb.CouchDBBlockLogger",
+			"loggerClass": "com.txmq.aviator.blocklogger.couchdb.CouchDBBlockLogger",
 			"parameters": [
 				{ "key": "databaseName", "value": "zoo-"},
 				{ "key": "useAsPrefix", "value": "true"},

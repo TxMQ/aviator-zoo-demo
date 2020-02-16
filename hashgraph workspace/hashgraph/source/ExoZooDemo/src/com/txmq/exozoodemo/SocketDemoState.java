@@ -24,7 +24,7 @@ import com.swirlds.platform.FastCopyable;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
 import com.swirlds.platform.Transaction;
-import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.core.swirlds.AviatorSwirldsState;
 
 
 /**
@@ -32,7 +32,7 @@ import com.txmq.aviator.core.AviatorState;
  * a string, and the state is just a list of the strings in all the transactions handled so far, in the
  * order that they were handled.
  */
-public class SocketDemoState extends AviatorState implements SwirldState {
+public class SocketDemoState extends AviatorSwirldsState implements SwirldState {
 	
 	
 	/**
@@ -84,7 +84,7 @@ public class SocketDemoState extends AviatorState implements SwirldState {
 	@Override
 	public synchronized FastCopyable copy() {
 		SocketDemoState copy = new SocketDemoState();
-		copy.copyFrom(this);
+		copy.copyFrom((SwirldState)this);
 		return copy;
 	}
 

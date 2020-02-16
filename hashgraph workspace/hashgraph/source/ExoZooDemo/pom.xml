@@ -9,6 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<properties>
+		<maven.compiler.source>1.10</maven.compiler.source>
+		<maven.compiler.target>1.10</maven.compiler.target>
 		<mdep.skip>false</mdep.skip>
 		<app.repo>${project.baseUri}../../data/repos/app/</app.repo>
 		<platform.repo>${project.baseUri}../../data/repos/platform/</platform.repo>
@@ -17,7 +19,6 @@
 	</properties>
 	<groupId>ExoZooDemo</groupId>
 	<artifactId>ExoZooDemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<repositories>
@@ -53,45 +54,44 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
 	<dependencyManagement>
-		<dependencies>
+	  	<dependencies>
+		  	<dependency>
+			    <groupId>org.glassfish.jersey</groupId>
+			    <artifactId>jersey-bom</artifactId>
+			    <version>2.29</version>
+			    <type>pom</type>
+			    <scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>com.txmq.aviator</groupId>
 				<artifactId>aviator-core-bom</artifactId>
-				<version>1.0.2</version>
+				<version>1.2.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
+	  	</dependencies>
+	  </dependencyManagement>
+	  <dependencies>
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
 			<artifactId>AviatorCore</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
-			<artifactId>CouchDBBlockLogger</artifactId>
+			<artifactId>AviatorCoreSwirlds</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.lmax</groupId>
-			<artifactId>disruptor</artifactId>
-			<version>3.3.6</version>
+			<groupId>com.txmq.aviator</groupId>
+			<artifactId>AviatorBlockLoggerCouchDB</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.7</version>
+			<groupId>com.txmq.aviator</groupId>
+			<artifactId>AviatorRestServer</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
-		<plugins>
+		<plugins><!-- 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -102,13 +102,12 @@
 							<goal>add-source</goal>
 						</goals>
 						<configuration>
-							<sources>
-								<source>aviator-core</source>
+							<sources>								
 							</sources>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
