@@ -13,7 +13,7 @@
     },
     "blockLoggers": [
 	    {
-			"loggerClass": "com.txmq.aviator.persistence.couchdb.CouchDBBlockLogger",
+			"loggerClass": "com.txmq.aviator.blocklogger.couchdb.CouchDBBlockLogger",
 			"parameters": [
 				{ "key": "databaseName", "value": "zoo-"},
 				{ "key": "useAsPrefix", "value": "true"},
