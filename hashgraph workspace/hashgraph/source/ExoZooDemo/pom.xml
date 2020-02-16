@@ -136,12 +136,12 @@
 	        <groupId>javax.activation</groupId>
 	        <artifactId>activation</artifactId>
 	        <version>1.1</version>
-	      </dependency>
+	      </dependency><!-- 
 	      <dependency>
 	        <groupId>org.lightcouch</groupId>
 	        <artifactId>lightcouch</artifactId>
 	        <version>0.2.0</version>
-	      </dependency>
+	      </dependency>-->
 	      <dependency>
 	    <groupId>org.glassfish.jersey.inject</groupId>
 	    <artifactId>jersey-hk2</artifactId>
