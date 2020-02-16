@@ -20,9 +20,7 @@
               <goal>add-source</goal>
             </goals>
             <configuration>
-              <sources>
-                <source>aviator-rest</source>
-              </sources>
+              <sources />
             </configuration>
           </execution>
         </executions>
