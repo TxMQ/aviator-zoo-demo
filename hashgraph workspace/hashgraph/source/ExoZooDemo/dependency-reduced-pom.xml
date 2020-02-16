@@ -21,9 +21,8 @@
             </goals>
             <configuration>
               <sources>
-                <source>aviator-core-swirlds</source>
                 <source>aviator-rest</source>
-                <source>aviator-blocklogger-couchdb</source>
+                <source>aviator-core-swirlds</source>
               </sources>
             </configuration>
           </execution>

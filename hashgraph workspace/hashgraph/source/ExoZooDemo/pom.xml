@@ -77,12 +77,10 @@
 			<groupId>com.txmq.aviator</groupId>
 			<artifactId>AviatorCore</artifactId>
 		</dependency>
-<!-- 
 		<dependency>
 			<groupId>com.txmq.aviator</groupId>
-			<artifactId>CouchDBBlockLogger</artifactId>
+			<artifactId>AviatorBlockLoggerCouchDB</artifactId>
 		</dependency>
-	 -->
 	  	<dependency>
 		    <groupId>org.reflections</groupId>
 		    <artifactId>reflections</artifactId>
@@ -224,10 +222,10 @@
 						</goals>
 						<configuration>
 							<sources>
-								<!-- <source>aviator-core</source> -->
-								<source>aviator-core-swirlds</source>
+								<!-- <source>aviator-core</source>
+								<source>aviator-blocklogger-couchdb</source> -->
 								<source>aviator-rest</source>
-								<source>aviator-blocklogger-couchdb</source>
+								<source>aviator-core-swirlds</source>
 							</sources>
 						</configuration>
 					</execution>
