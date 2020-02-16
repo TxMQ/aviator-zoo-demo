@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.txmq.aviator.messaging.AviatorNotification;
 import com.txmq.aviator.pipeline.PipelineStatus;
+import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberBase;
 
 public class AviatorWebSocketSubscriber extends AviatorSubscriberBase<WebSocket> {
 
