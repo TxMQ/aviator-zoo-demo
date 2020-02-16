@@ -1,8 +1,6 @@
 {
     "transactionProcessors": [
-		"com.txmq.exozoodemo.rest",
-		"com.txmq.exozoodemo.websocket",
-		"com.txmq.exozoodemo.transactions",
+		"com.txmq.exozoodemo",
 		"com.txmq.aviator.messaging.rest",
 		"com.txmq.aviator.persistence.transactions"
 	],

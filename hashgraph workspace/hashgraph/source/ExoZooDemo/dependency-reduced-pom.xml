@@ -8,7 +8,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ExoZooDemo</groupId>
   <artifactId>ExoZooDemo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -22,7 +21,9 @@
             </goals>
             <configuration>
               <sources>
-                <source>aviator-core</source>
+                <source>aviator-core-swirlds</source>
+                <source>aviator-rest</source>
+                <source>aviator-blocklogger-couchdb</source>
               </sources>
             </configuration>
           </execution>
@@ -111,6 +112,13 @@
         <groupId>org.glassfish.jersey</groupId>
         <artifactId>jersey-bom</artifactId>
         <version>2.29</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.txmq.aviator</groupId>
+        <artifactId>aviator-core-bom</artifactId>
+        <version>1.2.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
