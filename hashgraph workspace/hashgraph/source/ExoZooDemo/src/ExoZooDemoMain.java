@@ -13,6 +13,7 @@
 import com.swirlds.platform.Browser;
 import com.swirlds.platform.Console;
 import com.swirlds.platform.Platform;
+import com.swirlds.platform.PlatformStatus;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 import com.txmq.aviator.core.swirlds.AviatorSwirlds;
@@ -84,5 +85,11 @@ public class ExoZooDemoMain implements SwirldMain {
 	@Override
 	public SwirldState newState() {
 		return new SocketDemoState();
+	}
+
+	@Override
+	public void platformStatusChange(PlatformStatus arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
