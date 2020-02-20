@@ -6,7 +6,8 @@
 	],
 	"rest": {
         "port": -1,
-        "derivedPort": 2000,
+		"derivedPort": 2000,
+		"publishedHostName": "localhost",
         "handlers": [
             "com.txmq.exozoodemo.rest"
         ]
